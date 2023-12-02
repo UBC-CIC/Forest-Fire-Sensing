@@ -1,23 +1,88 @@
 import logo from './logo.svg';
 import './App.css';
+import {Amplify} from 'aws-amplify';
+import {get} from 'aws-amplify/api';
+import awsconfig from './aws-exports';
+import {useState} from 'react';
+
+Amplify.configure(awsconfig);
 
 function App() {
+  const [latitude, setLat] = useState('');
+  const [longitude, setLon] = useState('');
+  const [json, setJSON] = useState('');
+
+  function inputHandlerLat(event){
+    setLat(event.target.value);
+  }
+
+  function inputHandlerLon(event){
+    setLon(event.target.value);
+  }
+
+  function formatFireData(json){
+    if(json == ""){
+      return;
+    }
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>FWI</th>
+            <th>Danger Description</th>
+            <th>Danger Value</th>
+            <th>DT</th>
+            <th>Time (UTC)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {json["list"].map((item, index) => (
+            <tr key={index}>
+              <td>{item.main.fwi}</td>
+              <td>{item.danger_rating.description}</td>
+              <td>{item.danger_rating.value}</td>
+              <td>{item.dt}</td>
+              <td>{new Date(item.dt*1000).toUTCString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
+  async function api() {
+    try {
+      const restOperation = get({ 
+        apiName: 'testapi',
+        path: '/test',
+        options: {
+          queryParams: {
+            "lat": latitude,
+            "lon": longitude
+          }
+        }
+      });
+      const response = await restOperation.response;
+      const json = await response.body.json();
+      setJSON(json);
+      console.log('GET call succeeded: ', json);
+    } catch (error) {
+      console.log('GET call failed: ', error);
+    }
+  }
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>Latitude: </p>
+      <input type="text" value={latitude} onChange={inputHandlerLat}/>
+      <p>Longitude</p>
+      <input type="text" value={longitude} onChange={inputHandlerLon}/>
+      <br/>
+      <button onClick={api}>Get Fire Risk</button>
+      <br/>
+      {formatFireData(json)}
+      <p></p>
     </div>
   );
 }

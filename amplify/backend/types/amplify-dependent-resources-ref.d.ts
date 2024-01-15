@@ -1,13 +1,18 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "testapi": {
+    "apia22561c3": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    },
+    "apibcf31860": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
     }
   },
   "auth": {
-    "app": {
+    "491m2prototype": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -18,7 +23,14 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "test": {
+    "491m2satellite": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "491m2write": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

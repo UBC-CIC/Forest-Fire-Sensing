@@ -1,6 +1,6 @@
 {
   "api": {
-    "testapi": {
+    "apia22561c3": {
       "dependsOn": [
         {
           "attributes": [
@@ -8,7 +8,21 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "test"
+          "resourceName": "491m2write"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
+    "apibcf31860": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "491m2satellite"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -16,7 +30,7 @@
     }
   },
   "auth": {
-    "app": {
+    "491m2prototype": {
       "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
@@ -42,26 +56,47 @@
     }
   },
   "function": {
-    "test": {
+    "491m2satellite": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "491m2write": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_test_deploymentBucketName": {
+    "AMPLIFY_function_491m2satellite_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "test"
+          "resourceName": "491m2satellite"
         }
       ]
     },
-    "AMPLIFY_function_test_s3Key": {
+    "AMPLIFY_function_491m2satellite_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "test"
+          "resourceName": "491m2satellite"
+        }
+      ]
+    },
+    "AMPLIFY_function_491m2write_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491m2write"
+        }
+      ]
+    },
+    "AMPLIFY_function_491m2write_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491m2write"
         }
       ]
     }

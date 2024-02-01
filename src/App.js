@@ -4,6 +4,7 @@ import {get} from 'aws-amplify/api';
 import awsconfig from './aws-exports';
 import {useState} from 'react';
 import { SHA256 } from 'crypto-js';
+import Map from './Map';
 
 const _ = require('lodash');
 
@@ -120,8 +121,8 @@ function App() {
       <br/>
       <button onClick={api}>Get Fire Risk</button>
       <br/>
-      {formatFireData(json)}
       <p></p>
+      <Map coordinates={[latitude, longitude]} fireData={formatFireData(json)} json={json}/>
     </div>
   );
 }

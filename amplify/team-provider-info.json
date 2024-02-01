@@ -17,7 +17,8 @@
         "491m2satellite": {
           "deploymentBucketName": "amplify-491m2prototype-dev-153755-deployment",
           "s3Key": "amplify-builds/491m2satellite-684b2b774e3841454d2b-build.zip"
-        }
+        },
+        "491m2write": {}
       },
       "auth": {
         "491m2prototype": {}
@@ -57,6 +58,39 @@
       "api": {
         "apibcf31860": {},
         "apia22561c3": {}
+      }
+    }
+  },
+  "amplifydev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-491m2prototype-amplifydev-194624-authRole",
+      "UnauthRoleArn": "arn:aws:iam::546282482728:role/amplify-491m2prototype-amplifydev-194624-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::546282482728:role/amplify-491m2prototype-amplifydev-194624-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-491m2prototype-amplifydev-194624-deployment",
+      "UnauthRoleName": "amplify-491m2prototype-amplifydev-194624-unauthRole",
+      "StackName": "amplify-491m2prototype-amplifydev-194624",
+      "StackId": "arn:aws:cloudformation:us-east-1:546282482728:stack/amplify-491m2prototype-amplifydev-194624/7bcf0970-bbfd-11ee-b752-0ae50c2aab2d",
+      "AmplifyAppId": "d2nan3h5yw1sc8",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-491m2prototype-amplifydev-194624-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "491m2prototype": {}
+      },
+      "function": {
+        "491m2satellite": {
+          "deploymentBucketName": "amplify-491m2prototype-amplifydev-194624-deployment",
+          "s3Key": "amplify-builds/491m2satellite-6b57584138684a6b4878-build.zip"
+        },
+        "491m2write": {
+          "deploymentBucketName": "amplify-491m2prototype-amplifydev-194624-deployment",
+          "s3Key": "amplify-builds/491m2write-6e303462616a64777639-build.zip"
+        }
+      },
+      "api": {
+        "apia22561c3": {},
+        "apibcf31860": {}
       }
     }
   }

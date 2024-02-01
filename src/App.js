@@ -53,21 +53,6 @@ function App() {
     );
   }
 
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-
-  function createUniqueID(latitude, longitude, timestamp) {
-    let concatenatedString = `${latitude}_${longitude}_${timestamp}`;
-    let hashedString = SHA256(concatenatedString).toString();
-    let randomNumber = getRandomInt(1000, 9999);
-
-    let currentTimestamp = new Date().getTime();
-    let uniqueID = `${hashedString}_${currentTimestamp}_${randomNumber}`;
-    return uniqueID;
-  }
-
   async function api() {
     try {
       const restOperation = get({ 
@@ -85,27 +70,6 @@ function App() {
       setJSON(json);
       console.log('GET call succeeded: ', json);
 
-      const coordinates = json['coord'];
-      for(let i of json['list']){
-        let dt = i['dt'];
-        let data_id = createUniqueID(coordinates['lat'], coordinates['lon'], dt);
-        get({ 
-          apiName: 'apia22561c3',
-          path: '/putitem',
-          options: {
-            queryParams: {
-              "data_id": data_id,
-              "lat": coordinates['lat'],
-              "lon":coordinates['lon'],
-              "fwi": _.get(i, 'main.fwi', ''),
-              "dt": dt,
-              "danger_description": _.get(i, 'danger_rating.description', ''),
-              "danger_value": _.get(i, 'danger_rating.value', ''),
-            }
-          }
-        });
-        console.log('Write succeeded', );
-      }
     } catch (error) {
       console.log('GET call failed: ', error);
     }

@@ -4,8 +4,12 @@
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 const https = require('https');
+const AWS = require('aws-sdk');
+const lambda = new AWS.Lambda({region: 'us-east-1'});
 
 exports.handler = async (event, context) => {
+
+  // Fetching data from open api
     var apiKey = "20e23369630f9b6fbf843ee4bfc42fcc";
     var lat = event["queryStringParameters"]["lat"];
     var lon = event["queryStringParameters"]["lon"];
@@ -32,6 +36,22 @@ exports.handler = async (event, context) => {
     });
   });
   var jsonData = await p;
+
+  console.log(jsonData)
+
+  // Invoke 491m2write
+  const params = {
+    FunctionName: '491m2write-amplifydev',
+    InvocationType: 'RequestResponse',
+    LogType: 'None',
+    Payload: JSON.stringify(jsonData)
+  };
+  const response = await lambda.invoke(params).promise();
+  if(response.StatusCode !== 200){
+    throw new Error('Failed writing to dynamodb')
+  }
+
+  // Return success
       return {
         statusCode: 200,
         headers: {

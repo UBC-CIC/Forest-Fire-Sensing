@@ -8,6 +8,7 @@
     "@types/aws-lambda": "^8.10.92"
   },
   "dependencies": {
-    "aws-sdk": "^2.1536.0"
+    "aws-sdk": "^2.1536.0",
+    "crypto-js": "^4.2.0"
   }
 }

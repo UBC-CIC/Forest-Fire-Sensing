@@ -23,7 +23,7 @@ exports.handler = (event, context, callback) => {
         PutRequest: {
             Item: {
                 'coord': `${lat}#${lon}`,
-                'timestamp': dt,
+                'timestamp': parseInt(dt),
                 'fwi': fwi,
                 'danger_description': danger_description,
                 'danger_value': danger_value,

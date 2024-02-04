@@ -5,7 +5,7 @@
  */
 const https = require('https');
 const AWS = require('aws-sdk');
-const lambda = new AWS.Lambda({region: 'us-east-1'});
+const lambda = new AWS.Lambda({region: 'ca-central-1'});
 
 exports.handler = async (event, context) => {
 
@@ -41,7 +41,7 @@ exports.handler = async (event, context) => {
 
   // Invoke 491m2write
   const params = {
-    FunctionName: '491m2write-amplifydev',
+    FunctionName: '491m2write-ampdev',
     InvocationType: 'RequestResponse',
     LogType: 'None',
     Payload: JSON.stringify(jsonData)

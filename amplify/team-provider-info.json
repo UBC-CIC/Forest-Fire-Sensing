@@ -119,10 +119,17 @@
         "491m2write": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
           "s3Key": "amplify-builds/491m2write-522f337777576c704d38-build.zip"
+        },
+        "491getLocations": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/491getLocations-67483633424d2b654d37-build.zip"
+        },
+        "491putLocation": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/491putLocation-64374c6b675a50424578-build.zip"
         }
       },
       "api": {
-        "apia22561c3": {},
         "apibcf31860": {}
       }
     }

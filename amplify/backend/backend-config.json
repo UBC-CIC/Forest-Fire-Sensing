@@ -1,19 +1,5 @@
 {
   "api": {
-    "apia22561c3": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "491m2write"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "apibcf31860": {
       "dependsOn": [
         {
@@ -56,6 +42,11 @@
     }
   },
   "function": {
+    "491getLocations": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "491m2satellite": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -65,9 +56,30 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "491putLocation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
+    "AMPLIFY_function_491getLocations_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491getLocations"
+        }
+      ]
+    },
+    "AMPLIFY_function_491getLocations_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491getLocations"
+        }
+      ]
+    },
     "AMPLIFY_function_491m2satellite_deploymentBucketName": {
       "usedBy": [
         {
@@ -97,6 +109,22 @@
         {
           "category": "function",
           "resourceName": "491m2write"
+        }
+      ]
+    },
+    "AMPLIFY_function_491putLocation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491putLocation"
+        }
+      ]
+    },
+    "AMPLIFY_function_491putLocation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491putLocation"
         }
       ]
     }

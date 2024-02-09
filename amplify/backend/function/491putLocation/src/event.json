@@ -1,0 +1,10 @@
+{
+  "queryStringParameters": {
+    "lat": 49.2827,
+    "lon": -123.1207,
+    "country": "Canada",
+    "city": "Vancouver",
+    "province": "BC",
+    "locationName": "van-1"
+  }
+}

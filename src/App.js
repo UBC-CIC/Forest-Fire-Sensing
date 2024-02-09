@@ -3,10 +3,8 @@ import {Amplify} from 'aws-amplify';
 import {get} from 'aws-amplify/api';
 import awsconfig from './aws-exports';
 import {useState} from 'react';
-import { SHA256 } from 'crypto-js';
 import Map from './Map';
-
-const _ = require('lodash');
+import Login from './Login';
 
 Amplify.configure(awsconfig);
 
@@ -14,6 +12,7 @@ function App() {
   const [latitude, setLat] = useState('');
   const [longitude, setLon] = useState('');
   const [json, setJSON] = useState('');
+  const [loginOverlay, setLoginOverlay] = useState(false);
 
   function inputHandlerLat(event){
     setLat(event.target.value);
@@ -21,6 +20,14 @@ function App() {
 
   function inputHandlerLon(event){
     setLon(event.target.value);
+  }
+
+  function signInButtonHandler(){
+    setLoginOverlay(true);
+  }
+
+  function loginExitButtonHandler(){
+    setLoginOverlay(false);
   }
 
   function formatFireData(json){
@@ -85,6 +92,8 @@ function App() {
       <br/>
       <button onClick={api}>Get Fire Risk</button>
       <br/>
+      <button onClick={signInButtonHandler}> Sign In or Sign Up</button>
+      {loginOverlay && <Login closeHandler={loginExitButtonHandler}/>}
       <p></p>
       <Map coordinates={[latitude, longitude]} fireData={formatFireData(json)} json={json}/>
     </div>

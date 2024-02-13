@@ -1,5 +1,35 @@
 {
   "api": {
+    "apib7c99001": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "491getLocations"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "491putLocation"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getLocationData"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "apibcf31860": {
       "dependsOn": [
         {
@@ -58,6 +88,16 @@
       "service": "Lambda"
     },
     "491putLocation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "491satelliteAll": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getLocationData": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -125,6 +165,38 @@
         {
           "category": "function",
           "resourceName": "491putLocation"
+        }
+      ]
+    },
+    "AMPLIFY_function_491satelliteAll_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491satelliteAll"
+        }
+      ]
+    },
+    "AMPLIFY_function_491satelliteAll_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491satelliteAll"
+        }
+      ]
+    },
+    "AMPLIFY_function_getLocationData_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getLocationData"
+        }
+      ]
+    },
+    "AMPLIFY_function_getLocationData_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getLocationData"
         }
       ]
     }

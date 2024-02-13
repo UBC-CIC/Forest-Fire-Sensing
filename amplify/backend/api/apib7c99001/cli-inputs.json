@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "paths": {
+    "/locations": {
+      "name": "/locations",
+      "lambdaFunction": "491getLocations",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/location/{coord}": {
+      "name": "/location/{coord}",
+      "lambdaFunction": "491putLocation",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/data/{coord}": {
+      "name": "/data/{coord}",
+      "lambdaFunction": "getLocationData",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

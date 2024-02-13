@@ -46,12 +46,12 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {json["list"].map((item, index) => (
+          {json.map((item, index) => (
             <tr key={index}>
-              <td>{item.main.fwi}</td>
-              <td>{item.danger_rating.description}</td>
-              <td>{item.danger_rating.value}</td>
-              <td>{item.dt}</td>
+              <td>{item.fwi}</td>
+              <td>{item.danger_description}</td>
+              <td>{item.danger_value}</td>
+              <td>{item.timestamp}</td>
               <td>{new Date(item.dt*1000).toUTCString()}</td>
             </tr>
           ))}
@@ -63,8 +63,8 @@ function App() {
   async function api() {
     try {
       const restOperation = get({ 
-        apiName: 'apibcf31860',
-        path: '/items',
+        apiName: 'apib7c99001',
+        path: `/data/${latitude}#${longitude}`,
         options: {
           queryParams: {
             "lat": latitude,
@@ -73,6 +73,7 @@ function App() {
         }
       });
       const response = await restOperation.response;
+      console.log(response)
       const json = await response.body.json();
       setJSON(json);
       console.log('GET call succeeded: ', json);

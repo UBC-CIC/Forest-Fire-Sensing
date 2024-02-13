@@ -14,7 +14,7 @@ exports.handler = (event, context, callback) => {
     let city = event["queryStringParameters"]['city'];
     let province = event["queryStringParameters"]['province'];
     let locationName = event["queryStringParameters"]['locationName'];
-
+    
     const json = {
         'coord': `${lat}#${lon}`,
         'country': country,

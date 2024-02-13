@@ -48,7 +48,10 @@ exports.handler = async (event, context) => {
   };
   const response = await lambda.invoke(params).promise();
   if(response.StatusCode !== 200){
-    throw new Error('Failed writing to dynamodb')
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Error Writing data' })
+    };
   }
 
   // Return success

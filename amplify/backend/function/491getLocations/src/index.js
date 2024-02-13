@@ -9,7 +9,7 @@ exports.handler = async (event) => {
 
     try {
         const data = await dynamoDB.scan(params).promise();
-        console.log(data);
+
         return {
             statusCode: 200,
             body: JSON.stringify(data.Items)

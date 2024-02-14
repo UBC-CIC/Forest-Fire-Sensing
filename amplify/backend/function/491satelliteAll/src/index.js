@@ -29,15 +29,14 @@ exports.handler = async (event) => {
       };
 
       const data = _.get(response, 'Payload', []);
-      console.log(data)
-      console
+      const dataItems = JSON.parse(data).body;
 
-      data.forEach(async element => {
+      JSON.parse(dataItems).forEach(async element => {
         var coord = _.get(element, 'coord.S', '');
+
         if(coord != ''){
             payload = { "queryStringParameters": { "lat": coord.split('#')[0], "lon": coord.split('#')[1] } };
             paramsWrite['Payload'] = JSON.stringify(payload);
-
             var res = await lambda.invoke(paramsWrite).promise();
             if(res.StatusCode !== 200){
                 return {
@@ -53,7 +52,6 @@ exports.handler = async (event) => {
         headers: {
          "Access-Control-Allow-Origin": "*",
          "Access-Control-Allow-Headers": "*"
-        },
-        body: JSON.stringify(data),
+        }
     };
 };

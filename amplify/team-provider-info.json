@@ -134,7 +134,7 @@
         },
         "491satelliteAll": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491satelliteAll-44445830324163644437-build.zip"
+          "s3Key": "amplify-builds/491satelliteAll-6b456e37496659423762-build.zip"
         }
       },
       "api": {

@@ -1,5 +1,6 @@
 import './App.css';
 import {Amplify} from 'aws-amplify';
+import { useAuthenticator, Button } from '@aws-amplify/ui-react';
 import {get} from 'aws-amplify/api';
 import awsconfig from './aws-exports';
 import {useState} from 'react';
@@ -11,8 +12,11 @@ Amplify.configure(awsconfig);
 function App() {
   const [latitude, setLat] = useState('');
   const [longitude, setLon] = useState('');
-  const [json, setJSON] = useState('');
   const [loginOverlay, setLoginOverlay] = useState(false);
+  const [locationData, setLocationData] = useState();
+
+  const {user, signOut} = useAuthenticator((context) => [context.user]);
+  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
 
   function inputHandlerLat(event){
     setLat(event.target.value);
@@ -28,6 +32,16 @@ function App() {
 
   function loginExitButtonHandler(){
     setLoginOverlay(false);
+  }
+
+  function isLoggedIn(){
+    return authStatus === 'authenticated';
+  }
+
+  function getUsername(){
+    if(user == null)
+      return;
+    return user.username;
   }
 
   function formatFireData(json){
@@ -52,7 +66,7 @@ function App() {
               <td>{item.danger_description}</td>
               <td>{item.danger_value}</td>
               <td>{item.timestamp}</td>
-              <td>{new Date(item.dt*1000).toUTCString()}</td>
+              <td>{new Date(item.timestamp*1000).toUTCString()}</td>
             </tr>
           ))}
         </tbody>
@@ -60,7 +74,18 @@ function App() {
     );
   }
 
-  async function api() {
+  function formatLocations(jsonLocations){
+    let result = [];
+
+    jsonLocations.map((item) => {
+      let coords = item.coord.S.split('#');
+
+      result.push([parseFloat(coords[0]), parseFloat(coords[1])])
+    });
+    return result;
+  }
+
+  async function getFWIAPIResult() {
     try {
       const restOperation = get({ 
         apiName: 'apib7c99001',
@@ -75,28 +100,82 @@ function App() {
       const response = await restOperation.response;
       console.log(response)
       const json = await response.body.json();
-      setJSON(json);
+      setLocationData(locationData => [...locationData, [[latitude, longitude], formatFireData(json)]])
       console.log('GET call succeeded: ', json);
 
     } catch (error) {
       console.log('GET call failed: ', error);
     }
   }
+
+  async function getLocations() {
+    try {
+      const restOperation = get({ 
+        apiName: 'apib7c99001',
+        path: `/locations`
+      });
+      const response = await restOperation.response;
+      console.log(response)
+      const json = await response.body.json();
+      console.log('GET call succeeded: ', json);
+      return json;
+    } catch (error) {
+      console.log('GET call failed: ', error);
+    }
+  }
+
+  async function getLocationData(coordinates) {
+    try {
+      const restOperation = get({ 
+        apiName: 'apib7c99001',
+        path: `/data/${coordinates[0]}#${coordinates[1]}`,
+        options: {
+          queryParams: {
+            "lat": coordinates[0],
+            "lon": coordinates[1]
+          }
+        }
+      });
+      const response = await restOperation.response;
+      console.log(response)
+      const json = await response.body.json();
+      console.log('GET call succeeded: ', json);
+      return json;
+    } catch (error) {
+      console.log('GET call failed: ', error);
+    }
+  }
   
+
+  async function getAllLocationData() {
+    const jsonLocations = await getLocations();
+    const locationList = formatLocations(jsonLocations);
+    let locData = [];
+    console.log(locationList);
+    for(let i = 0; i < locationList.length; i++){
+      let data = await getLocationData(locationList[i]);
+      locData.push([locationList[i], formatFireData(data)]);
+    }
+
+    setLocationData(locData);
+  }
 
   return (
     <div className="App">
+      {isLoggedIn() && <h3>Welcome {getUsername()}</h3>}
       <p>Latitude: </p>
       <input type="text" value={latitude} onChange={inputHandlerLat}/>
       <p>Longitude</p>
       <input type="text" value={longitude} onChange={inputHandlerLon}/>
       <br/>
-      <button onClick={api}>Get Fire Risk</button>
+      <Button onClick={getFWIAPIResult}>Get Fire Risk</Button>
+      <Button onClick={getAllLocationData}>Get Locations</Button>
       <br/>
-      <button onClick={signInButtonHandler}> Sign In or Sign Up</button>
+      {!isLoggedIn() && <Button onClick={signInButtonHandler}> Sign In or Sign Up</Button>}
+      {isLoggedIn() && <Button onClick={signOut}> Sign Out</Button>}
       {loginOverlay && <Login closeHandler={loginExitButtonHandler}/>}
       <p></p>
-      <Map coordinates={[latitude, longitude]} fireData={formatFireData(json)} json={json}/>
+      <Map locationData={locationData}/>
     </div>
   );
 }

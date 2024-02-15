@@ -5,9 +5,6 @@ import awsconfig from './aws-exports';
 import {useState} from 'react';
 import Map from './Map';
 import Login from './Login';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-
-const _ = require('lodash');
 
 Amplify.configure(awsconfig);
 
@@ -86,59 +83,6 @@ function App() {
     }
   }
   
-  async function getLocations() {
-    try {
-      const restOperation = get({ 
-        apiName: 'apib7c99001',
-        path: `/locations`,
-        options: {}
-      });
-      const response = await restOperation.response;
-      const json = await response.body.json();
-      setMarkers(json)
-    } catch (error) {
-      console.log('GET call failed: ', error);
-    } 
-  }
-  
-  var locations = []
-
-  async function setMarkers(json){
-    json.forEach(element => {
-      var coord = _.get(element, 'coord.S', '');
-      var lat = coord.split('#')[0]
-      var lon = coord.split('#')[1]
-      var locationName = _.get(element, 'locationName.S', '')
-      locations.push({
-        'coordinates': {'lat': lat, 'lon': lon},
-        'locName': locationName
-      })
-    });
-  }
-
-  getLocations()
-
-
-
-
-function Map(locations, coordinates) {
-  return (
-    <MapContainer center={coordinates} zoom={13} style={{ height: '400px', width: '100%' }}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {locations.map((location, index) => (
-        <Marker key={index} position={location.coordinates}>
-          <Popup>
-            {location.locName}
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
-}
-
-console.log(Map(locations, {'lat': 49.2827,'lon': -123.1207}))
 
   return (
     <div className="App">
@@ -152,7 +96,7 @@ console.log(Map(locations, {'lat': 49.2827,'lon': -123.1207}))
       <button onClick={signInButtonHandler}> Sign In or Sign Up</button>
       {loginOverlay && <Login closeHandler={loginExitButtonHandler}/>}
       <p></p>
-      {Map(locations, {'lat': 49.2827,'lon': -123.1207})}
+      <Map coordinates={[latitude, longitude]} fireData={formatFireData(json)} json={json}/>
     </div>
   );
 }

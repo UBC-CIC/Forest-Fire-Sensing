@@ -1,0 +1,10 @@
+{
+  "resourceName": "satelliteData",
+  "tableName": "satelliteData",
+  "partitionKey": {
+    "fieldName": "coord",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

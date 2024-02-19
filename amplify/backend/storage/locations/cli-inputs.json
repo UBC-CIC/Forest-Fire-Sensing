@@ -1,0 +1,10 @@
+{
+  "resourceName": "locations",
+  "tableName": "locations",
+  "partitionKey": {
+    "fieldName": "coord",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

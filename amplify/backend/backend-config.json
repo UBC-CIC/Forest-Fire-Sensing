@@ -25,6 +25,14 @@
           ],
           "category": "function",
           "resourceName": "getLocationData"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getUserSensors"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -98,6 +106,11 @@
       "service": "Lambda"
     },
     "getLocationData": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getUserSensors": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -199,6 +212,32 @@
           "resourceName": "getLocationData"
         }
       ]
+    },
+    "AMPLIFY_function_getUserSensors_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserSensors"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUserSensors_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserSensors"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "locations": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "satelliteData": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
     }
   }
 }

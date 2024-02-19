@@ -21,6 +21,16 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/user-sensors": {
+      "name": "/user-sensors",
+      "lambdaFunction": "getUserSensors",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "read"
+        ]
+      }
     }
   }
 }

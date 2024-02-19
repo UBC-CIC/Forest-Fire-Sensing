@@ -18,7 +18,7 @@ function addMarkers(locationData) {
   return (
     <>
       {locationData.map((location) => (
-        <Marker position={location[0]}>
+        <Marker position={location[0]} key={location[0]}>
           <Popup>
             {location[1]}
           </Popup>

@@ -2,6 +2,7 @@ import './App.css';
 import {Amplify} from 'aws-amplify';
 import { useAuthenticator, Button } from '@aws-amplify/ui-react';
 import {get} from 'aws-amplify/api';
+import {fetchAuthSession} from 'aws-amplify/auth'
 import awsconfig from './aws-exports';
 import {useState} from 'react';
 import Map from './Map';
@@ -14,6 +15,8 @@ function App() {
   const [longitude, setLon] = useState('');
   const [loginOverlay, setLoginOverlay] = useState(false);
   const [locationData, setLocationData] = useState();
+  const [userLocationData, setUserLocationData] = useState();
+  const [onlyUserData, setOnlyUserData] = useState(false);
 
   const {user, signOut} = useAuthenticator((context) => [context.user]);
   const {authStatus} = useAuthenticator((context) => [context.authStatus]);
@@ -85,6 +88,11 @@ function App() {
     return result;
   }
 
+  async function getUserToken(){
+    const token = (await fetchAuthSession()).tokens.idToken;
+    return token;
+  }
+
   async function getFWIAPIResult() {
     try {
       const restOperation = get({ 
@@ -145,10 +153,31 @@ function App() {
       console.log('GET call failed: ', error);
     }
   }
+
+  async function getUserSensors() {
+    const token = await getUserToken();
+    try {
+      const restOperation = get({
+        apiName: 'apib7c99001',
+        path: `/user-sensors`,
+        options: {
+          headers: {
+            Authorization: token
+          }
+        }
+      });
+      const response = await restOperation.response;
+      const json = await response.body.json();
+      console.log('GET call succeeded: ', json);
+      return json;
+    } catch (error) {
+      console.log('GET call failed: ', error);
+    }
+  }
   
 
-  async function getAllLocationData() {
-    const jsonLocations = await getLocations();
+  async function getAllLocationData(isUserLocation) {
+    const jsonLocations = isUserLocation ? await getUserSensors() : await getLocations();
     const locationList = formatLocations(jsonLocations);
     let locData = [];
     console.log(locationList);
@@ -157,7 +186,8 @@ function App() {
       locData.push([locationList[i], formatFireData(data)]);
     }
 
-    setLocationData(locData);
+    isUserLocation ? setUserLocationData(locData) : setLocationData(locData);
+    isUserLocation ? setOnlyUserData(true) : setOnlyUserData(false);
   }
 
   return (
@@ -169,13 +199,14 @@ function App() {
       <input type="text" value={longitude} onChange={inputHandlerLon}/>
       <br/>
       <Button onClick={getFWIAPIResult}>Get Fire Risk</Button>
-      <Button onClick={getAllLocationData}>Get Locations</Button>
+      <Button onClick={() => getAllLocationData(false)}>Get Locations</Button>
+      <Button onClick={() => getAllLocationData(true)}>Get User Sensors</Button>     
       <br/>
       {!isLoggedIn() && <Button onClick={signInButtonHandler}> Sign In or Sign Up</Button>}
       {isLoggedIn() && <Button onClick={signOut}> Sign Out</Button>}
       {loginOverlay && <Login closeHandler={loginExitButtonHandler}/>}
       <p></p>
-      <Map locationData={locationData}/>
+      <Map locationData={onlyUserData ? userLocationData : locationData}/>
     </div>
   );
 }

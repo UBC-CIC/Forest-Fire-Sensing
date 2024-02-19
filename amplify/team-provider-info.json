@@ -130,16 +130,24 @@
         },
         "getLocationData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/getLocationData-5a706b7a516b66644574-build.zip"
+          "s3Key": "amplify-builds/getLocationData-6b3052314369664c4b59-build.zip"
         },
         "491satelliteAll": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
           "s3Key": "amplify-builds/491satelliteAll-6b456e37496659423762-build.zip"
+        },
+        "getUserSensors": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/getUserSensors-77337377567466534370-build.zip"
         }
       },
       "api": {
         "apibcf31860": {},
         "apib7c99001": {}
+      },
+      "storage": {
+        "locations": {},
+        "satelliteData": {}
       }
     }
   }

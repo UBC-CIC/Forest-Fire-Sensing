@@ -12,13 +12,15 @@ exports.handler = async (event) => {
         name = event.requestContext.authorizer.claims["cognito:username"];
     }
 
+    let headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*"
+    };
+
     if (name === "")
         return {
             statusCode: 401,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*"
-            },
+            headers: headers,
             body: JSON.stringify("Invalid Authorization: Does not contain username")
         };
 
@@ -38,19 +40,13 @@ exports.handler = async (event) => {
         const data = await dynamoDB.scan(params).promise();
         return {
             statusCode: 200,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*"
-            },
+            headers: headers,
             body: JSON.stringify(data.Items)
         };
     } catch (err) {
         return {
             statusCode: 500,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*"
-            },
+            headers: headers,
             body: JSON.stringify(err)
         };
     }

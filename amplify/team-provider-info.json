@@ -138,7 +138,7 @@
         },
         "getUserSensors": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/getUserSensors-33364145634638304b31-build.zip"
+          "s3Key": "amplify-builds/getUserSensors-72704e3236334272325a-build.zip"
         },
         "491getAllLocations": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",

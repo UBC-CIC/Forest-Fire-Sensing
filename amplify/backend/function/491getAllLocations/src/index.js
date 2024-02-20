@@ -5,13 +5,6 @@ exports.handler = async (event) => {
     const params = {
         TableName: 'locations-ampdev',
         ProjectionExpression: 'coord, locationName', 
-        FilterExpression: '#publicLocation = :publicValue',
-        ExpressionAttributeNames: {
-            '#publicLocation': 'publicLocation',
-        },
-        ExpressionAttributeValues: {
-            ':publicValue': {BOOL: true},
-        },
     };
 
     try {
@@ -29,10 +22,6 @@ exports.handler = async (event) => {
         console.error(error);
         return {
             statusCode: 500,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*"
-            },
             body: JSON.stringify({ message: 'Error scanning DynamoDB table' })
         };
     }

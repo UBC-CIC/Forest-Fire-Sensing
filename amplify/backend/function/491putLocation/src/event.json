@@ -5,6 +5,7 @@
     "country": "Canada",
     "city": "Vancouver",
     "province": "BC",
+    "user": "abc",
     "locationName": "van-1"
   }
 }

@@ -80,6 +80,11 @@
     }
   },
   "function": {
+    "491getAllLocations": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "491getLocations": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -117,6 +122,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_491getAllLocations_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491getAllLocations"
+        }
+      ]
+    },
+    "AMPLIFY_function_491getAllLocations_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "491getAllLocations"
+        }
+      ]
+    },
     "AMPLIFY_function_491getLocations_deploymentBucketName": {
       "usedBy": [
         {

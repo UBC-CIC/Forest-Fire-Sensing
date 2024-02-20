@@ -34,7 +34,7 @@ exports.handler = (event, context, callback) => {
   });
   const params = {
     RequestItems: {
-        'satellite_data': itemsToInsert
+        'satelliteData-ampdev': itemsToInsert
     }
   };
 

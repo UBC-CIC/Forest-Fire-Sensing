@@ -50,6 +50,10 @@ exports.handler = async (event, context) => {
   if(response.StatusCode !== 200){
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*"
+      },
       body: JSON.stringify({ message: 'Error Writing data' })
     };
   }

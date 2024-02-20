@@ -5,6 +5,10 @@
     "fieldName": "coord",
     "fieldType": "string"
   },
+  "sortKey": {
+    "fieldName": "timestamp",
+    "fieldType": "number"
+  },
   "gsi": [],
   "triggerFunctions": []
 }

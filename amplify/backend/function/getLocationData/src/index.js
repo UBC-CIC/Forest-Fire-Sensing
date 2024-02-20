@@ -6,13 +6,16 @@ AWS.config.update({region: 'ca-central-1'});
 const ddb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
+
+    // TODO: check if have access to the location
+
     var lat = event["queryStringParameters"]['lat'];
     var lon = event["queryStringParameters"]['lon'];
     const currentTimestamp = Math.floor(Date.now() / 1000);
     const coord = `${lat}#${lon}`;
 
     const params = {
-        TableName: 'satellite_data',
+        TableName: 'satelliteData-ampdev',
         KeyConditionExpression: 'coord = :coordVal AND #ts > :currentTs',
         ExpressionAttributeNames: {
             '#ts': 'timestamp' 
@@ -24,15 +27,22 @@ exports.handler = async (event) => {
     }
     try {
         const data = await ddb.query(params).promise();
+        // TO-DO: get sensor data
         return { statusCode: 200, 
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Headers": "*"
                 },
-               body: JSON.stringify(data.Items) };
+               body: JSON.stringify({"satellite": data.Items, "sensor": []}) };
     } catch (err) {
-        return { statusCode: 500, body: JSON.stringify(err) };
+        return { 
+            statusCode: 500, 
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*"
+            },
+            body: JSON.stringify(err) 
+        };
     }
 
-    // TO-DO: get sensor data
 };

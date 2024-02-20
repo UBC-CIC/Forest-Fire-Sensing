@@ -114,31 +114,35 @@
       "function": {
         "491m2satellite": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491m2satellite-575330796f5658633630-build.zip"
+          "s3Key": "amplify-builds/491m2satellite-42617559696a70663235-build.zip"
         },
         "491m2write": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491m2write-522f337777576c704d38-build.zip"
+          "s3Key": "amplify-builds/491m2write-5468534e6a556f423141-build.zip"
         },
         "491getLocations": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491getLocations-39415a6731717744674e-build.zip"
+          "s3Key": "amplify-builds/491getLocations-506e68476b7234586649-build.zip"
         },
         "491putLocation": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491putLocation-326b59527a6259714769-build.zip"
+          "s3Key": "amplify-builds/491putLocation-5a7657766f5234644273-build.zip"
         },
         "getLocationData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/getLocationData-6b3052314369664c4b59-build.zip"
+          "s3Key": "amplify-builds/getLocationData-663131484e537150776c-build.zip"
         },
         "491satelliteAll": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491satelliteAll-6b456e37496659423762-build.zip"
+          "s3Key": "amplify-builds/491satelliteAll-45527073792b37757132-build.zip"
         },
         "getUserSensors": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/getUserSensors-77337377567466534370-build.zip"
+          "s3Key": "amplify-builds/getUserSensors-33364145634638304b31-build.zip"
+        },
+        "491getAllLocations": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/491getAllLocations-6173316a42464e496f6b-build.zip"
         }
       },
       "api": {

@@ -1,5 +1,3 @@
-
-
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
@@ -10,7 +8,7 @@ const lambda = new AWS.Lambda({region: 'ca-central-1'});
 
 exports.handler = async (event) => {
     const params = {
-        FunctionName: '491getLocations-ampdev',
+        FunctionName: '491getAllLocations-ampdev',
         InvocationType: 'RequestResponse',
         LogType: 'None'
       };
@@ -18,6 +16,10 @@ exports.handler = async (event) => {
       if(response.StatusCode !== 200){
         return {
             statusCode: 500,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Headers": "*"
+             },
             body: JSON.stringify({ message: 'Error getting locations' })
           };
       }
@@ -29,26 +31,55 @@ exports.handler = async (event) => {
       };
 
       const data = _.get(response, 'Payload', []);
-      const dataItems = JSON.parse(data).body;
 
-      JSON.parse(dataItems).forEach(async element => {
+      const dataItems = JSON.parse(data).body;
+      console.log("get locations: ", dataItems);
+
+      const promises = JSON.parse(dataItems).map(async element => {
         var coord = _.get(element, 'coord.S', '');
 
-        if(coord != ''){
-            payload = { "queryStringParameters": { "lat": coord.split('#')[0], "lon": coord.split('#')[1] } };
-            paramsWrite['Payload'] = JSON.stringify(payload);
-            var res = await lambda.invoke(paramsWrite).promise();
-            if(res.StatusCode !== 200){
-                return {
-                    statusCode: 500,
-                    body: JSON.stringify({ message: 'Error getting location data' })
-                };
+        if (coord !== '') {
+          let payload = {
+            "queryStringParameters": {
+              "lat": coord.split('#')[0],
+              "lon": coord.split('#')[1]
             }
+          };
+          paramsWrite['Payload'] = JSON.stringify(payload);
+
+          try {
+            var res = await lambda.invoke(paramsWrite).promise();
+
+            if (res.StatusCode !== 200) {
+              console.log("error fetch and write data ", coord)
+              return {
+                  statusCode: 500,
+                  headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*"
+                   },
+                  body: JSON.stringify({ message: 'Error fetch and write data' })
+              };
+            }
+          } catch (error) {
+            console.log("error fetch and write data ", coord)
+              return {
+                  statusCode: 500,
+                  headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*"
+                   },
+                  body: JSON.stringify({ message: 'Error fetch and write data' })
+              };
+          }
         }
       });
 
+      await Promise.all(promises);
+
       return {
         statusCode: 200,
+        body: JSON.stringify({ message: 'Success' }),
         headers: {
          "Access-Control-Allow-Origin": "*",
          "Access-Control-Allow-Headers": "*"

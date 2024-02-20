@@ -5,6 +5,7 @@
 
 const AWS = require('aws-sdk');
 const ddb = new AWS.DynamoDB.DocumentClient();
+const _ = require('lodash')
 
 exports.handler = (event, context, callback) => {
 
@@ -14,6 +15,8 @@ exports.handler = (event, context, callback) => {
     let city = event["queryStringParameters"]['city'];
     let province = event["queryStringParameters"]['province'];
     let locationName = event["queryStringParameters"]['locationName'];
+    let user = event["queryStringParameters"]['user'];
+    let publicLocation = _.get(event, "queryStringParameters.publicLocation", false);
     
     const json = {
         'coord': `${lat}#${lon}`,
@@ -21,11 +24,13 @@ exports.handler = (event, context, callback) => {
         'city': city,
         'province': province,
         'locationName': locationName,
+        'user': user,
+        'publicLocation': publicLocation
     }
 
     recordData(json).then(() => {
         callback(null, {
-            statusCode: 201,
+            statusCode: 200,
             body: JSON.stringify(json),
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -41,7 +46,7 @@ exports.handler = (event, context, callback) => {
 
 function recordData(json) {
     return ddb.put({
-        TableName: 'locations',
+        TableName: 'locations-ampdev',
         Item: json,
     }).promise();
 }

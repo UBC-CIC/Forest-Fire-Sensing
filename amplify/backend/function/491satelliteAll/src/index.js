@@ -36,7 +36,11 @@ exports.handler = async (event) => {
       console.log("get locations: ", dataItems);
 
       const promises = JSON.parse(dataItems).map(async element => {
+        
         var coord = _.get(element, 'coord.S', '');
+        setTimeout(function() {
+          console.log('fetch data for ', coord);
+        }, 1000);
 
         if (coord !== '') {
           let payload = {

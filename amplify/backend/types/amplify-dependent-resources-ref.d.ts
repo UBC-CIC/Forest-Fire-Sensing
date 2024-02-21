@@ -60,6 +60,7 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "491satelliteAll": {
       "Arn": "string",
+      "CloudWatchEventRule": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",

@@ -11,23 +11,13 @@ import Login from './Login';
 Amplify.configure(awsconfig);
 
 function App() {
-  const [latitude, setLat] = useState('');
-  const [longitude, setLon] = useState('');
   const [loginOverlay, setLoginOverlay] = useState(false);
-  const [locationData, setLocationData] = useState();
-  const [userLocationData, setUserLocationData] = useState();
+  const [publicLocations, setPublicLocations] = useState();
+  const [userLocations, setUserLocations] = useState();
   const [onlyUserData, setOnlyUserData] = useState(false);
 
   const {user, signOut} = useAuthenticator((context) => [context.user]);
   const {authStatus} = useAuthenticator((context) => [context.authStatus]);
-
-  function inputHandlerLat(event){
-    setLat(event.target.value);
-  }
-
-  function inputHandlerLon(event){
-    setLon(event.target.value);
-  }
 
   function signInButtonHandler(){
     setLoginOverlay(true);
@@ -51,6 +41,7 @@ function App() {
     if(json === ""){
       return;
     }
+    json = json['satellite'];
     return (
       <table>
         <thead>
@@ -80,40 +71,17 @@ function App() {
   function formatLocations(jsonLocations){
     let result = [];
 
-    jsonLocations.map((item) => {
+    jsonLocations.forEach((item) => {
       let coords = item.coord.S.split('#');
 
       result.push([parseFloat(coords[0]), parseFloat(coords[1])])
-    });
+  });
     return result;
   }
 
   async function getUserToken(){
     const token = (await fetchAuthSession()).tokens.idToken;
     return token;
-  }
-
-  async function getFWIAPIResult() {
-    try {
-      const restOperation = get({ 
-        apiName: 'apib7c99001',
-        path: `/data/${latitude}#${longitude}`,
-        options: {
-          queryParams: {
-            "lat": latitude,
-            "lon": longitude
-          }
-        }
-      });
-      const response = await restOperation.response;
-      console.log(response)
-      const json = await response.body.json();
-      setLocationData(locationData => [...locationData, [[latitude, longitude], formatFireData(json)]])
-      console.log('GET call succeeded: ', json);
-
-    } catch (error) {
-      console.log('GET call failed: ', error);
-    }
   }
 
   async function getLocations() {
@@ -179,34 +147,22 @@ function App() {
   async function getAllLocationData(isUserLocation) {
     const jsonLocations = isUserLocation ? await getUserSensors() : await getLocations();
     const locationList = formatLocations(jsonLocations);
-    let locData = [];
-    console.log(locationList);
-    for(let i = 0; i < locationList.length; i++){
-      let data = await getLocationData(locationList[i]);
-      locData.push([locationList[i], formatFireData(data)]);
-    }
 
-    isUserLocation ? setUserLocationData(locData) : setLocationData(locData);
+    isUserLocation ? setUserLocations(locationList) : setPublicLocations(locationList);
     isUserLocation ? setOnlyUserData(true) : setOnlyUserData(false);
   }
 
   return (
     <div className="App">
       {isLoggedIn() && <h3>Welcome {getUsername()}</h3>}
-      <p>Latitude: </p>
-      <input type="text" value={latitude} onChange={inputHandlerLat}/>
-      <p>Longitude</p>
-      <input type="text" value={longitude} onChange={inputHandlerLon}/>
-      <br/>
-      <Button onClick={getFWIAPIResult}>Get Fire Risk</Button>
-      <Button onClick={() => getAllLocationData(false)}>Get Locations</Button>
-      <Button onClick={() => getAllLocationData(true)}>Get User Sensors</Button>     
+      <Button onClick={() => getAllLocationData(false)}>View Public Locations</Button>
+      <Button onClick={() => getAllLocationData(true)}>View User Sensors</Button>     
       <br/>
       {!isLoggedIn() && <Button onClick={signInButtonHandler}> Sign In or Sign Up</Button>}
       {isLoggedIn() && <Button onClick={signOut}> Sign Out</Button>}
       {loginOverlay && <Login closeHandler={loginExitButtonHandler}/>}
       <p></p>
-      <Map locationData={onlyUserData ? userLocationData : locationData}/>
+      <Map locations={onlyUserData ? userLocations : publicLocations} getLocationData={getLocationData}/>
     </div>
   );
 }

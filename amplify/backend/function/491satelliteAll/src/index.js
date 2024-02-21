@@ -36,13 +36,15 @@ exports.handler = async (event) => {
       console.log("get locations: ", dataItems);
 
       function sleep(ms) {
+        console.log(Date.now());
         return new Promise(resolve => setTimeout(resolve, ms));
       }
 
-      const promises = JSON.parse(dataItems).map(async element => {
-        await sleep(1000);
+      for (const element of JSON.parse(dataItems)) {
+        await sleep(1000); // Ensures a 1-second delay between each iteration
         var coord = _.get(element, 'coord.S', '');
-
+        console.log(coord);
+      
         if (coord !== '') {
           let payload = {
             "queryStringParameters": {
@@ -78,9 +80,8 @@ exports.handler = async (event) => {
               };
           }
         }
-      });
+      };
 
-      await Promise.all(promises);
 
       return {
         statusCode: 200,

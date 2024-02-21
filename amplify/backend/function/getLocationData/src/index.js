@@ -7,8 +7,6 @@ const ddb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
 
-    // TODO: check if have access to the location
-
     var lat = event["queryStringParameters"]['lat'];
     var lon = event["queryStringParameters"]['lon'];
     const currentTimestamp = Math.floor(Date.now() / 1000);

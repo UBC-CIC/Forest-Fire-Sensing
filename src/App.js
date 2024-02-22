@@ -4,7 +4,7 @@ import { useAuthenticator, Button } from '@aws-amplify/ui-react';
 import {get} from 'aws-amplify/api';
 import {fetchAuthSession} from 'aws-amplify/auth'
 import awsconfig from './aws-exports';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Map from './Map';
 import Login from './Login';
 
@@ -22,6 +22,15 @@ function App() {
   function signInButtonHandler(){
     setLoginOverlay(true);
   }
+
+  useEffect(() => {
+    // Reset state when user signs out
+    if (authStatus !== 'authenticated') {
+      setPublicLocations(undefined);
+      setUserLocations(undefined);
+      setOnlyUserData(false);
+    }
+  }, [authStatus]);
 
   function loginExitButtonHandler(){
     setLoginOverlay(false);
@@ -91,9 +100,7 @@ function App() {
         path: `/locations`
       });
       const response = await restOperation.response;
-      console.log(response)
       const json = await response.body.json();
-      console.log('GET call succeeded: ', json);
       return json;
     } catch (error) {
       console.log('GET call failed: ', error);
@@ -113,9 +120,7 @@ function App() {
         }
       });
       const response = await restOperation.response;
-      console.log(response)
       const json = await response.body.json();
-      console.log('GET call succeeded: ', json);
       return json;
     } catch (error) {
       console.log('GET call failed: ', error);
@@ -136,7 +141,6 @@ function App() {
       });
       const response = await restOperation.response;
       const json = await response.body.json();
-      console.log('GET call succeeded: ', json);
       return json;
     } catch (error) {
       console.log('GET call failed: ', error);
@@ -162,7 +166,11 @@ function App() {
       {isLoggedIn() && <Button onClick={signOut}> Sign Out</Button>}
       {loginOverlay && <Login closeHandler={loginExitButtonHandler}/>}
       <p></p>
-      <Map locations={onlyUserData ? userLocations : publicLocations} getLocationData={getLocationData}/>
+      <Map
+        key={onlyUserData ? 'userLocations' : 'publicLocations'}
+        locations={onlyUserData ? userLocations : publicLocations}
+        getLocationData={getLocationData}
+      />
     </div>
   );
 }

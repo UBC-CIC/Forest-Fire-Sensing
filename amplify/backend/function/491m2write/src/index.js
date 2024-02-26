@@ -9,9 +9,8 @@ const ddb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = (event, context, callback) => {
 
-  const dataList = event['list'];
-  var lat = event['coord']['lat'];
-  var lon = event['coord']['lon'];
+  const sensorID = event['sensorID']
+  const dataList = event['data']['list'];
 
   const itemsToInsert = dataList.map((dataItem, index) => {
     const dt = dataItem['dt'];
@@ -22,7 +21,7 @@ exports.handler = (event, context, callback) => {
     return {
         PutRequest: {
             Item: {
-                'coord': `${lat}#${lon}`,
+                'sensorID': sensorID,
                 'timestamp': parseInt(dt),
                 'fwi': fwi,
                 'danger_description': danger_description,

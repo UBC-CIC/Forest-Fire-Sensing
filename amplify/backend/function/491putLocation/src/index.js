@@ -9,6 +9,7 @@ const _ = require('lodash')
 
 exports.handler = (event, context, callback) => {
 
+    var sensorID = event["queryStringParameters"]['sensorID'];
     var lat = event["queryStringParameters"]['lat'];
     var lon = event["queryStringParameters"]['lon'];
     let country = event["queryStringParameters"]['country'];
@@ -19,7 +20,9 @@ exports.handler = (event, context, callback) => {
     let publicLocation = _.get(event, "queryStringParameters.publicLocation", false);
     
     const json = {
-        'coord': `${lat}#${lon}`,
+        'sensorID': sensorID,
+        'lat': lat,
+        'lon': lon,
         'country': country,
         'city': city,
         'province': province,
@@ -46,7 +49,7 @@ exports.handler = (event, context, callback) => {
 
 function recordData(json) {
     return ddb.put({
-        TableName: 'locations-ampdev',
+        TableName: 'sensors-ampdev',
         Item: json,
     }).promise();
 }

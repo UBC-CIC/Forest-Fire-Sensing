@@ -3,8 +3,8 @@ const dynamoDB = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
     const params = {
-        TableName: 'locations-ampdev',
-        ProjectionExpression: 'coord, locationName', 
+        TableName: 'sensors-ampdev',
+        ProjectionExpression: 'sensorID, lat, lon, locationName', 
         FilterExpression: '#publicLocation = :publicValue',
         ExpressionAttributeNames: {
             '#publicLocation': 'publicLocation',

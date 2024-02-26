@@ -11,6 +11,7 @@ exports.handler = async (event, context) => {
 
   // Fetching data from open api
     var apiKey = "20e23369630f9b6fbf843ee4bfc42fcc";
+    var sensorID = event["queryStringParameters"]["sensorID"];
     var lat = event["queryStringParameters"]["lat"];
     var lon = event["queryStringParameters"]["lon"];
     const apiURL = `https://api.openweathermap.org/data/2.5/fwi/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
@@ -44,7 +45,7 @@ exports.handler = async (event, context) => {
     FunctionName: '491m2write-ampdev',
     InvocationType: 'RequestResponse',
     LogType: 'None',
-    Payload: JSON.stringify(jsonData)
+    Payload: JSON.stringify({'sensorID': sensorID, 'data': jsonData})
   };
   const response = await lambda.invoke(params).promise();
   if(response.StatusCode !== 200){

@@ -253,11 +253,11 @@
     }
   },
   "storage": {
-    "locations": {
+    "satelliteData": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     },
-    "satelliteData": {
+    "sensors": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

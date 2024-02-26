@@ -7,19 +7,17 @@ const ddb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
 
-    var lat = event["queryStringParameters"]['lat'];
-    var lon = event["queryStringParameters"]['lon'];
+    var sensorID = event["queryStringParameters"]['sensorID'];
     const currentTimestamp = Math.floor(Date.now() / 1000);
-    const coord = `${lat}#${lon}`;
 
     const params = {
         TableName: 'satelliteData-ampdev',
-        KeyConditionExpression: 'coord = :coordVal AND #ts > :currentTs',
+        KeyConditionExpression: 'sensorID = :sensorIDVal AND #ts > :currentTs',
         ExpressionAttributeNames: {
             '#ts': 'timestamp' 
         },
         ExpressionAttributeValues: {
-            ':coordVal': coord,
+            ':sensorIDVal': sensorID,
             ':currentTs': currentTimestamp
         }
     }

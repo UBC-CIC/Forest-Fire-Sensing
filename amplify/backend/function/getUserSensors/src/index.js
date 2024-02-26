@@ -25,7 +25,7 @@ exports.handler = async (event) => {
         };
 
     const params = {
-        TableName: "locations-ampdev",
+        TableName: "sensors-ampdev",
         FilterExpression: '#user = :username',
         ExpressionAttributeValues: {
             ':username': {S: name}

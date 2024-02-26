@@ -81,9 +81,11 @@ function App() {
     let result = [];
 
     jsonLocations.forEach((item) => {
-      let coords = item.coord.S.split('#');
+      let lat = item.lat.N;
+      let lon = item.lon.N;
+      let sensorID = item.sensorID.S;
 
-      result.push([parseFloat(coords[0]), parseFloat(coords[1])])
+      result.push([lat, lon, sensorID])
   });
     return result;
   }
@@ -107,15 +109,15 @@ function App() {
     }
   }
 
-  async function getLocationData(coordinates) {
+  async function getLocationData(params) {
+    console.log(params)
     try {
       const restOperation = get({ 
         apiName: 'apib7c99001',
-        path: `/data/${coordinates[0]}#${coordinates[1]}`,
+        path: `/data/${params[2]}`,
         options: {
           queryParams: {
-            "lat": coordinates[0],
-            "lon": coordinates[1]
+            "sensorID": params[2]
           }
         }
       });

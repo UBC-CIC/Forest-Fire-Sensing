@@ -1,8 +1,8 @@
 {
-  "resourceName": "locations",
-  "tableName": "locations",
+  "resourceName": "sensors",
+  "tableName": "sensors",
   "partitionKey": {
-    "fieldName": "coord",
+    "fieldName": "sensorID",
     "fieldType": "string"
   },
   "gsi": [],

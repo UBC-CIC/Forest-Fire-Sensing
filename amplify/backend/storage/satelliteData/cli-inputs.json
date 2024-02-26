@@ -2,7 +2,7 @@
   "resourceName": "satelliteData",
   "tableName": "satelliteData",
   "partitionKey": {
-    "fieldName": "coord",
+    "fieldName": "sensorID",
     "fieldType": "string"
   },
   "sortKey": {

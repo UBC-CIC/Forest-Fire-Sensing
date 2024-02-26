@@ -8,15 +8,15 @@
         "setting": "open"
       }
     },
-    "/location/{coord}": {
-      "name": "/location/{coord}",
+    "/location/{sensorID}": {
+      "name": "/location/{sensorID}",
       "lambdaFunction": "491putLocation",
       "permissions": {
         "setting": "open"
       }
     },
-    "/data/{coord}": {
-      "name": "/data/{coord}",
+    "/data/{sensorID}": {
+      "name": "/data/{sensorID}",
       "lambdaFunction": "getLocationData",
       "permissions": {
         "setting": "open"

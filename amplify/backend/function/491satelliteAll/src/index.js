@@ -42,14 +42,16 @@ exports.handler = async (event) => {
 
       for (const element of JSON.parse(dataItems)) {
         await sleep(1000); // Ensures a 1-second delay between each iteration
-        var coord = _.get(element, 'coord.S', '');
-        console.log(coord);
+        var lat = _.get(element, 'lat.N', -181);
+        var lon = _.get(element, 'lon.N', -181);
+        var sensorID = _.get(element, 'sensorID.S', '');
       
-        if (coord !== '') {
+        if (lat > -181 & lon > -181 & sensorID != '') {
           let payload = {
             "queryStringParameters": {
-              "lat": coord.split('#')[0],
-              "lon": coord.split('#')[1]
+              'sensorID': sensorID,
+              "lat":lat,
+              "lon": lon
             }
           };
           paramsWrite['Payload'] = JSON.stringify(payload);

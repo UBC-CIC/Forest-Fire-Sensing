@@ -4,10 +4,10 @@
 
 
 const AWS = require('aws-sdk');
-const ddb = new AWS.DynamoDB.DocumentClient();
+const dynamoDB = new AWS.DynamoDB();
 const _ = require('lodash')
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event) => {
 
     var sensorID = event["queryStringParameters"]['sensorID'];
     var lat = event["queryStringParameters"]['lat'];
@@ -18,54 +18,42 @@ exports.handler = (event, context, callback) => {
     let locationName = event["queryStringParameters"]['locationName'];
     let user = event["queryStringParameters"]['user'];
     let publicLocation = _.get(event, "queryStringParameters.publicLocation", false);
-    
-    const json = {
-        'sensorID': sensorID,
-        'lat': lat,
-        'lon': lon,
-        'country': country,
-        'city': city,
-        'province': province,
-        'locationName': locationName,
-        'user': user,
-        'publicLocation': publicLocation
+
+    const item = {
+        'sensorID': {'S': sensorID},
+        'lat': {'N': lat},
+        'lon': {'N': lon},
+        'locationName': {'S': locationName},
+        'user': {'S': user},
+        'publicLocation': {'BOOL': JSON.parse(publicLocation)}
     }
 
-    recordData(json).then(() => {
-        callback(null, {
-            statusCode: 200,
-            body: JSON.stringify(json),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*'
-            },
-        });
-    }).catch((err) => {
-        console.error(err);
-        errorResponse(err.message, context.awsRequestId, callback)
-    });
+    const params = {
+      TableName: 'sensors-ampdev',
+      Item: item
+    }
+
+    try {
+      const response = await dynamoDB.putItem(params).promise();
+
+      return {
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*"
+        },
+        body: JSON.stringify(response)
+    };
+    } catch(error) {
+      console.error(error);
+      return {
+          statusCode: 500,
+          headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Headers": "*"
+          },
+          body: JSON.stringify(error)
+      };
+    }
 };
-
-
-function recordData(json) {
-    return ddb.put({
-        TableName: 'sensors-ampdev',
-        Item: json,
-    }).promise();
-}
-
-
-function errorResponse(errorMessage, awsRequestId, callback) {
-  callback(null, {
-    statusCode: 500,
-    body: JSON.stringify({
-      Error: errorMessage,
-      Reference: awsRequestId,
-    }),
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': '*'
-    },
-  });
-}
 

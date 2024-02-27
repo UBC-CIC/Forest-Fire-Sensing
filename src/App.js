@@ -1,12 +1,13 @@
 import './App.css';
 import {Amplify} from 'aws-amplify';
 import { useAuthenticator, Button } from '@aws-amplify/ui-react';
-import {get} from 'aws-amplify/api';
+import {get, put} from 'aws-amplify/api';
 import {fetchAuthSession} from 'aws-amplify/auth'
 import awsconfig from './aws-exports';
 import {useState, useEffect} from 'react';
 import Map from './Map';
 import Login from './Login';
+import AddDevice from './AddDevice';
 
 Amplify.configure(awsconfig);
 
@@ -148,6 +149,31 @@ function App() {
       console.log('GET call failed: ', error);
     }
   }
+
+  async function putLocation(params) {
+    try {
+      const restOperation = put({
+        apiName: 'apib7c99001',
+        path: `/location/${params['devEUI']}`,
+        options: {
+          queryParams: {
+            sensorID: params['devEUI'],
+            lat: params['lat'],
+            lon: params['lon'],
+            locationName: params['name'],
+            publicLocation: params['publicLocation'],
+            user: getUsername()
+          }
+        }
+      });
+      const response = await restOperation.response;
+      const json = await response.body.json();
+      console.log('Device added successfully', json);
+      return json;
+    } catch (error) {
+      console.log('PUT call failed: ', error);
+    }
+  }
   
 
   async function getAllLocationData(isUserLocation) {
@@ -167,6 +193,8 @@ function App() {
       {!isLoggedIn() && <Button onClick={signInButtonHandler}> Sign In or Sign Up</Button>}
       {isLoggedIn() && <Button onClick={signOut}> Sign Out</Button>}
       {loginOverlay && <Login closeHandler={loginExitButtonHandler}/>}
+      <br/>
+      {isLoggedIn() && <AddDevice submitAction={putLocation}/>}
       <p></p>
       <Map
         key={onlyUserData ? 'userLocations' : 'publicLocations'}

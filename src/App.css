@@ -20,3 +20,42 @@
 table, th, td {
   border: 1px solid black;
 }
+
+h1.amplify-heading {
+  color: #104c4e;
+  font-weight: bold;
+}
+
+h3.amplify-heading {
+  color: #104c4e;
+}
+
+div.amplify-grid {
+  background-color: #104c4e;
+}
+
+div.base {
+  gap: 0.5em;
+  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 5fr;
+}
+
+div.amplify-card {
+  background-color: #d4eed9;
+}
+
+div.header {
+  grid-column: 1 / -1;
+}
+
+div.nav {
+  grid-column: 1 / 1;
+}
+
+div.main {
+  grid-column: 2 / -1;
+}
+
+button.amplify-button {
+  color: #104c4e;
+}

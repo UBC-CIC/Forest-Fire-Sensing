@@ -1,13 +1,13 @@
 import './App.css';
-import {Amplify} from 'aws-amplify';
-import { useAuthenticator, Button } from '@aws-amplify/ui-react';
-import {get, put} from 'aws-amplify/api';
-import {fetchAuthSession} from 'aws-amplify/auth'
+import { Amplify } from 'aws-amplify';
+import { useAuthenticator, Button, Grid, Card, Heading} from '@aws-amplify/ui-react';
+import { get, put } from 'aws-amplify/api';
+import { fetchAuthSession } from 'aws-amplify/auth'
 import awsconfig from './aws-exports';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Map from './Map';
 import Login from './Login';
-import AddDevice from './AddDevice';
+import UserDevices from './UserDevices';
 
 Amplify.configure(awsconfig);
 
@@ -17,10 +17,10 @@ function App() {
   const [userLocations, setUserLocations] = useState();
   const [onlyUserData, setOnlyUserData] = useState(false);
 
-  const {user, signOut} = useAuthenticator((context) => [context.user]);
-  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 
-  function signInButtonHandler(){
+  function signInButtonHandler() {
     setLoginOverlay(true);
   }
 
@@ -33,22 +33,22 @@ function App() {
     }
   }, [authStatus]);
 
-  function loginExitButtonHandler(){
+  function loginExitButtonHandler() {
     setLoginOverlay(false);
   }
 
-  function isLoggedIn(){
+  function isLoggedIn() {
     return authStatus === 'authenticated';
   }
 
-  function getUsername(){
-    if(user == null)
+  function getUsername() {
+    if (user == null)
       return;
     return user.username;
   }
 
-  function formatFireData(json){
-    if(json === ""){
+  function formatFireData(json) {
+    if (json === "") {
       return;
     }
     json = json['satellite'];
@@ -70,7 +70,7 @@ function App() {
               <td>{item.danger_description}</td>
               <td>{item.danger_value}</td>
               <td>{item.timestamp}</td>
-              <td>{new Date(item.timestamp*1000).toUTCString()}</td>
+              <td>{new Date(item.timestamp * 1000).toUTCString()}</td>
             </tr>
           ))}
         </tbody>
@@ -78,7 +78,7 @@ function App() {
     );
   }
 
-  function formatLocations(jsonLocations){
+  function formatLocations(jsonLocations) {
     let result = [];
 
     jsonLocations.forEach((item) => {
@@ -87,18 +87,18 @@ function App() {
       let sensorID = item.sensorID.S;
 
       result.push([lat, lon, sensorID])
-  });
+    });
     return result;
   }
 
-  async function getUserToken(){
+  async function getUserToken() {
     const token = (await fetchAuthSession()).tokens.idToken;
     return token;
   }
 
   async function getLocations() {
     try {
-      const restOperation = get({ 
+      const restOperation = get({
         apiName: 'apib7c99001',
         path: `/locations`
       });
@@ -113,7 +113,7 @@ function App() {
   async function getLocationData(params) {
     console.log(params)
     try {
-      const restOperation = get({ 
+      const restOperation = get({
         apiName: 'apib7c99001',
         path: `/data/${params[2]}`,
         options: {
@@ -169,12 +169,11 @@ function App() {
       const response = await restOperation.response;
       const json = await response.body.json();
       console.log('Device added successfully', json);
-      return json;
     } catch (error) {
       console.log('PUT call failed: ', error);
     }
   }
-  
+
 
   async function getAllLocationData(isUserLocation) {
     const jsonLocations = isUserLocation ? await getUserSensors() : await getLocations();
@@ -186,21 +185,27 @@ function App() {
 
   return (
     <div className="App">
-      {isLoggedIn() && <h3>Welcome {getUsername()}</h3>}
-      <Button onClick={() => getAllLocationData(false)}>View Public Locations</Button>
-      <Button onClick={() => getAllLocationData(true)}>View User Sensors</Button>     
-      <br/>
-      {!isLoggedIn() && <Button onClick={signInButtonHandler}> Sign In or Sign Up</Button>}
-      {isLoggedIn() && <Button onClick={signOut}> Sign Out</Button>}
-      {loginOverlay && <Login closeHandler={loginExitButtonHandler}/>}
-      <br/>
-      {isLoggedIn() && <AddDevice submitAction={putLocation}/>}
-      <p></p>
-      <Map
-        key={onlyUserData ? 'userLocations' : 'publicLocations'}
-        locations={onlyUserData ? userLocations : publicLocations}
-        getLocationData={getLocationData}
-      />
+      <Grid className="base">
+        <Card className="header">
+          <Heading level={1}>Forest Fire Detection🌲🔥</Heading>
+          {isLoggedIn() && <Heading level={3}>Welcome {getUsername()}</Heading>}
+          <Button onClick={() => getAllLocationData(false)}>View Public Locations</Button>
+          <Button onClick={() => getAllLocationData(true)}>View User Sensors</Button>
+          {!isLoggedIn() && <Button onClick={signInButtonHandler}> Sign In or Sign Up</Button>}
+          {isLoggedIn() && <Button onClick={signOut}> Sign Out</Button>}
+          {loginOverlay && <Login closeHandler={loginExitButtonHandler} />}
+        </Card>
+        <Card className="nav">
+          {isLoggedIn() && <UserDevices submitAction={putLocation} />}
+        </Card>
+        <Card className="main">
+          <Map
+            key={onlyUserData ? 'userLocations' : 'publicLocations'}
+            locations={onlyUserData ? userLocations : publicLocations}
+            getLocationData={getLocationData}
+          />
+        </Card>
+      </Grid>
     </div>
   );
 }

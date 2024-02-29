@@ -24,7 +24,6 @@ function AddDevice({submitAction}) {
 
     return (
         <div>
-            <h3>Add Device: </h3>
             <form onSubmit={(e)=> formSubmitHandler(e)}>
             <Input type="text" placeholder='Name' onChange={(e) => setName(e.currentTarget.value)} width="30%" isRequired/>
             <br/>
@@ -34,7 +33,7 @@ function AddDevice({submitAction}) {
             <br/>
             <Input type="text" placeholder='devEUI' onChange={(e) => setDevEUI(e.currentTarget.value)} width="30%" isRequired/>
             <br/>
-            <SwitchField label="Make Location Public" onChange={(e)=> setPublicLocation(e.target.checked)}/>
+            <SwitchField label="Make Location Public" onChange={(e)=> setPublicLocation(e.target.checked)} trackCheckedColor={"#104c4e"}/>
             <br/>
             <Button type="submit">Add Device</Button>
             </form>

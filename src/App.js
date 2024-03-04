@@ -137,9 +137,7 @@ function App() {
         apiName: 'apib7c99001',
         path: `/user-sensors`,
         options: {
-          queryParams: {
-            authToken: authToken
-          }
+          headers:{Authorization: authToken}
         }
       });
       const response = await restOperation.response;
@@ -164,8 +162,8 @@ function App() {
             lon: params['lon'],
             locationName: params['name'],
             publicLocation: params['publicLocation'],
-            authToken: authToken
-          }
+          },
+          headers:{Authorization: authToken}
         }
       });
       const response = await restOperation.response;

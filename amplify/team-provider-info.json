@@ -134,7 +134,7 @@
         },
         "getUserSensors": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/getUserSensors-724e4273725461305431-build.zip"
+          "s3Key": "amplify-builds/getUserSensors-6c316853765761447565-build.zip"
         },
         "491getAllLocations": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
@@ -142,7 +142,7 @@
         },
         "491putLocation": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491putLocation-542f3351413930694965-build.zip"
+          "s3Key": "amplify-builds/491putLocation-6133732f71674c693271-build.zip"
         }
       },
       "api": {

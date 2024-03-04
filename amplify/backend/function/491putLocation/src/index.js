@@ -11,8 +11,7 @@ const { CognitoJwtVerifier } = require("aws-jwt-verify");
 
 exports.handler = async (event) => {
 
-  const authToken = event["queryStringParameters"]['authToken']
-
+  const authToken = event.headers['Authorization']
   console.log(authToken)
   // Verifier that expects valid access tokens:
   const verifier = CognitoJwtVerifier.create({

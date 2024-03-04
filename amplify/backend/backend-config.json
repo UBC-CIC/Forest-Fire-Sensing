@@ -16,14 +16,6 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "491putLocation"
-        },
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
           "resourceName": "getLocationData"
         },
         {
@@ -33,6 +25,14 @@
           ],
           "category": "function",
           "resourceName": "getUserSensors"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "491putLocation"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -103,6 +103,17 @@
     },
     "491putLocation": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "sensors"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },

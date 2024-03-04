@@ -131,14 +131,14 @@ function App() {
   }
 
   async function getUserSensors() {
-    const token = await getUserToken();
     try {
+      const authToken = await getUserToken();
       const restOperation = get({
         apiName: 'apib7c99001',
         path: `/user-sensors`,
         options: {
-          headers: {
-            Authorization: token
+          queryParams: {
+            authToken: authToken
           }
         }
       });
@@ -147,11 +147,13 @@ function App() {
       return json;
     } catch (error) {
       console.log('GET call failed: ', error);
+      return [];
     }
   }
 
   async function putLocation(params) {
     try {
+      const authToken = await getUserToken();
       const restOperation = put({
         apiName: 'apib7c99001',
         path: `/location/${params['devEUI']}`,
@@ -162,7 +164,7 @@ function App() {
             lon: params['lon'],
             locationName: params['name'],
             publicLocation: params['publicLocation'],
-            user: getUsername()
+            authToken: authToken
           }
         }
       });

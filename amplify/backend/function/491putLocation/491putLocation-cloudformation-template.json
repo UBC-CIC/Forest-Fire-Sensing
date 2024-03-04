@@ -15,6 +15,18 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "storagesensorsName": {
+      "Type": "String",
+      "Default": "storagesensorsName"
+    },
+    "storagesensorsArn": {
+      "Type": "String",
+      "Default": "storagesensorsArn"
+    },
+    "storagesensorsStreamArn": {
+      "Type": "String",
+      "Default": "storagesensorsStreamArn"
     }
   },
   "Conditions": {
@@ -69,6 +81,15 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "STORAGE_SENSORS_NAME": {
+              "Ref": "storagesensorsName"
+            },
+            "STORAGE_SENSORS_ARN": {
+              "Ref": "storagesensorsArn"
+            },
+            "STORAGE_SENSORS_STREAMARN": {
+              "Ref": "storagesensorsStreamArn"
             }
           }
         },
@@ -89,12 +110,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "491m2prototypeLambdaRole85d05cb1",
+            "491m2prototypeLambdaRole49a2ff8c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "491m2prototypeLambdaRole85d05cb1",
+                  "491m2prototypeLambdaRole49a2ff8c",
                   "-",
                   {
                     "Ref": "env"
@@ -165,31 +186,52 @@
         }
       }
     },
-    "CustomLambdaExecutionPolicy": {
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
       "Type": "AWS::IAM::Policy",
       "Properties": {
-        "PolicyName": "custom-lambda-execution-policy",
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
         "PolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:PutItem"
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PartiQLInsert",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:PartiQLUpdate"
               ],
               "Resource": [
-                "*"
+                {
+                  "Ref": "storagesensorsArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagesensorsArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
               ]
             }
           ]
-        },
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ]
-      },
-      "DependsOn": "LambdaExecutionRole"
+        }
+      }
     }
   },
   "Outputs": {

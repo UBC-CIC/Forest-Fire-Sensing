@@ -8,6 +8,7 @@
     "@types/aws-lambda": "^8.10.92"
   },
   "dependencies": {
+    "aws-jwt-verify": "^4.0.1",
     "aws-sdk": "^2.1555.0"
   }
 }

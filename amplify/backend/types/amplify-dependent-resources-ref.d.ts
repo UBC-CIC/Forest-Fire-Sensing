@@ -61,6 +61,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "deleteSensorData": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "getLocationData": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

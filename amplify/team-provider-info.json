@@ -142,7 +142,11 @@
         },
         "491putLocation": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491putLocation-6133732f71674c693271-build.zip"
+          "s3Key": "amplify-builds/491putLocation-4777455175303832764a-build.zip"
+        },
+        "deleteSensorData": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/deleteSensorData-70376832362f4c337071-build.zip"
         }
       },
       "api": {

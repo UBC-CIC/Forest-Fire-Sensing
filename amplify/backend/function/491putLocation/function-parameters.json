@@ -1,10 +1,27 @@
 {
   "lambdaLayers": [],
   "permissions": {
+    "function": {
+      "491m2satellite": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "deleteSensorData": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
     "storage": {
       "sensors": [
         "create",
         "update"
+      ],
+      "satelliteData": [
+        "delete"
       ]
     }
   }

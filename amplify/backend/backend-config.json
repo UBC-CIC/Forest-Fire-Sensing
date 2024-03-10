@@ -106,12 +106,35 @@
       "dependsOn": [
         {
           "attributes": [
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "491m2satellite"
+        },
+        {
+          "attributes": [
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "deleteSensorData"
+        },
+        {
+          "attributes": [
             "Name",
             "Arn",
             "StreamArn"
           ],
           "category": "storage",
           "resourceName": "sensors"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "satelliteData"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -119,6 +142,22 @@
     },
     "491satelliteAll": {
       "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "deleteSensorData": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "satelliteData"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -227,6 +266,22 @@
         {
           "category": "function",
           "resourceName": "491satelliteAll"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteSensorData_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteSensorData"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteSensorData_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteSensorData"
         }
       ]
     },

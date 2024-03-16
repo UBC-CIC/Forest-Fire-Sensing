@@ -1,0 +1,89 @@
+{
+  "name": "as.up.data.forward",
+  "time": "2024-03-07T17:10:50.679076334Z",
+  "identifiers": [
+    {
+      "device_ids": {
+        "device_id": "eui-2cf7f12051004508",
+        "application_ids": {
+          "application_id": "capstone-app1"
+        },
+        "dev_eui": "2CF7F12051004508",
+        "join_eui": "526973696E674846",
+        "dev_addr": "260C30B6"
+      }
+    }
+  ],
+  "data": {
+    "@type": "type.googleapis.com/ttn.lorawan.v3.ApplicationUp",
+    "end_device_ids": {
+      "device_id": "eui-2cf7f12051004508",
+      "application_ids": {
+        "application_id": "capstone-app1"
+      },
+      "dev_eui": "2CF7F12051004508",
+      "join_eui": "526973696E674846",
+      "dev_addr": "260C30B6"
+    },
+    "correlation_ids": [
+      "gs:uplink:01HRCYAVTXPSPX2EFPQK6ZBVYM"
+    ],
+    "received_at": "2024-03-07T17:10:50.672812808Z",
+    "uplink_message": {
+      "session_key_id": "AY4Z5JF4vRdpubEaae88Sw==",
+      "f_port": 1,
+      "f_cnt": 3,
+      "frm_payload": "DfJKp0EVTLQKQh2bu8VHJbGesUY=",
+      "rx_metadata": [
+        {
+          "gateway_ids": {
+            "gateway_id": "eui-2cf7f11054200018",
+            "eui": "2CF7F11054200018"
+          },
+          "timestamp": 157462894,
+          "rssi": -67,
+          "channel_rssi": -67,
+          "snr": 14,
+          "frequency_offset": "141",
+          "uplink_token": "CiIKIAoUZXVpLTJjZjdmMTEwNTQyMDAwMTgSCCz38RBUIAAYEO7iiksaDAia6qevBhCa//TbASCwq5TMyqQf",
+          "channel_index": 6,
+          "received_at": "2024-03-07T17:10:50.443515236Z"
+        }
+      ],
+      "settings": {
+        "data_rate": {
+          "lora": {
+            "bandwidth": 125000,
+            "spreading_factor": 7,
+            "coding_rate": "4/5"
+          }
+        },
+        "frequency": "867700000",
+        "timestamp": 157462894
+      },
+      "received_at": "2024-03-07T17:10:50.462547574Z",
+      "confirmed": true,
+      "consumed_airtime": "0.077056s",
+      "network_ids": {
+        "net_id": "000013",
+        "ns_id": "EC656E0000000182",
+        "tenant_id": "ttn",
+        "cluster_id": "nam1",
+        "cluster_address": "nam1.cloud.thethings.network"
+      }
+    }
+  },
+  "correlation_ids": [
+    "gs:uplink:01HRCYAVTXPSPX2EFPQK6ZBVYM"
+  ],
+  "origin": "ip-10-101-15-11.us-west-1.compute.internal",
+  "context": {
+    "tenant-id": "CgN0dG4="
+  },
+  "visibility": {
+    "rights": [
+      "RIGHT_APPLICATION_TRAFFIC_READ"
+    ]
+  },
+  "unique_id": "01HRCYAW1QB71BCMZ94B4DD7HJ"
+}

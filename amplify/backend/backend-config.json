@@ -170,6 +170,11 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "storeSensorData": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -316,10 +321,30 @@
           "resourceName": "getUserSensors"
         }
       ]
+    },
+    "AMPLIFY_function_storeSensorData_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "storeSensorData"
+        }
+      ]
+    },
+    "AMPLIFY_function_storeSensorData_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "storeSensorData"
+        }
+      ]
     }
   },
   "storage": {
     "satelliteData": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "sensorData": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     },

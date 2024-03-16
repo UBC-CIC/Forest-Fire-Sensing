@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+message Message {
+    optional float temperature = 1;
+    optional float humidity = 2;
+    optional float pressure = 3;
+    optional float gas_resistence = 4;
+}

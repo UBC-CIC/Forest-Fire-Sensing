@@ -1,0 +1,14 @@
+{
+  "resourceName": "sensorData",
+  "tableName": "sensorData",
+  "partitionKey": {
+    "fieldName": "sensorID",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "timestamp",
+    "fieldType": "number"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

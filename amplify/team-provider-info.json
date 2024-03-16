@@ -147,15 +147,19 @@
         "deleteSensorData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
           "s3Key": "amplify-builds/deleteSensorData-70376832362f4c337071-build.zip"
+        },
+        "storeSensorData": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/storeSensorData-65313642504f646e7650-build.zip"
         }
       },
       "api": {
-        "apibcf31860": {},
         "apib7c99001": {}
       },
       "storage": {
         "sensors": {},
-        "satelliteData": {}
+        "satelliteData": {},
+        "sensorData": {}
       }
     }
   }

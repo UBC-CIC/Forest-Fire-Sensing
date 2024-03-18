@@ -10,9 +10,9 @@ exports.handler = async (event) => {
     var fs = require('fs');
     console.log(`EVENT: ${JSON.stringify(event)}`);
 
-    var sensorID = event["data"]["end_device_ids"]["dev_eui"];
-    var timestamp = event["data"]["uplink_message"]["rx_metadata"][0]["timestamp"];
-    var payload = event["data"]["uplink_message"]["frm_payload"];
+    var sensorID = event["end_device_ids"]["dev_eui"];
+    var timestamp = event["uplink_message"]["rx_metadata"][0]["timestamp"];
+    var payload = event["uplink_message"]["frm_payload"];
     let message;
     let root;
 

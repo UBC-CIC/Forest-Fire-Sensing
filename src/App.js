@@ -11,7 +11,6 @@ import UserDevices from './UserDevices';
 
 Amplify.configure(awsconfig);
 
-// test comment (remove later)
 function App() {
   const [loginOverlay, setLoginOverlay] = useState(false);
   const [publicLocations, setPublicLocations] = useState();

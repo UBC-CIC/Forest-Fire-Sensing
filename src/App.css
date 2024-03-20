@@ -53,7 +53,7 @@ div.nav {
 }
 
 div.main {
-  grid-column: 2 / -1;
+  grid-column: 1 / -1;
 }
 
 button.amplify-button {

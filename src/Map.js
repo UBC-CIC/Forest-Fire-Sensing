@@ -51,7 +51,7 @@ function Map({ locations, getLocationData }) {
     );
   }
   return (
-    <MapContainer center={[latitude, longitude]} zoom={13} ref={mapRef} style={{ height: "75vh", width: "100%", zIndex: 0 }}>
+    <MapContainer center={[latitude, longitude]} zoom={13} ref={mapRef} style={{ height: "92vh", width: "100%", zIndex: 0 }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

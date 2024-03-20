@@ -1,28 +1,25 @@
 import './App.css';
 import { Amplify } from 'aws-amplify';
-import { useAuthenticator, Button, Grid, Card, Heading} from '@aws-amplify/ui-react';
+import { useAuthenticator, Grid, Card} from '@aws-amplify/ui-react';
 import { get, put } from 'aws-amplify/api';
 import { fetchAuthSession } from 'aws-amplify/auth'
 import awsconfig from './aws-exports';
 import { useState, useEffect } from 'react';
 import Map from './Map';
-import Login from './Login';
 import UserDevices from './UserDevices';
+import Header from './Header';
+import {Drawer} from '@mui/material'
 
 Amplify.configure(awsconfig);
 
 function App() {
-  const [loginOverlay, setLoginOverlay] = useState(false);
   const [publicLocations, setPublicLocations] = useState();
   const [userLocations, setUserLocations] = useState();
   const [onlyUserData, setOnlyUserData] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
-
-  function signInButtonHandler() {
-    setLoginOverlay(true);
-  }
 
   useEffect(() => {
     // Reset state when user signs out
@@ -33,12 +30,12 @@ function App() {
     }
   }, [authStatus]);
 
-  function loginExitButtonHandler() {
-    setLoginOverlay(false);
-  }
-
   function isLoggedIn() {
     return authStatus === 'authenticated';
+  }
+
+  function handleDrawer(){
+    setShowDrawer(!showDrawer);
   }
 
   function getUsername() {
@@ -185,19 +182,15 @@ function App() {
 
   return (
     <div className="App">
+      <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} getAllLocationData={getAllLocationData} menuIconAction={handleDrawer}/>
       <Grid className="base">
-        <Card className="header">
-          <Heading level={1}>Forest Fire Detection🌲🔥</Heading>
-          {isLoggedIn() && <Heading level={3}>Welcome {getUsername()}</Heading>}
-          <Button onClick={() => getAllLocationData(false)}>View Public Locations</Button>
-          <Button onClick={() => getAllLocationData(true)}>View User Sensors</Button>
-          {!isLoggedIn() && <Button onClick={signInButtonHandler}> Sign In or Sign Up</Button>}
-          {isLoggedIn() && <Button onClick={signOut}> Sign Out</Button>}
-          {loginOverlay && <Login closeHandler={loginExitButtonHandler} />}
-        </Card>
+        <Drawer open={showDrawer} onClose={handleDrawer}>
+        
         <Card className="nav">
           {isLoggedIn() && <UserDevices submitAction={putLocation} />}
         </Card>
+        </Drawer>
+
         <Card className="main">
           <Map
             key={onlyUserData ? 'userLocations' : 'publicLocations'}

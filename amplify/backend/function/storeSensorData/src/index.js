@@ -19,7 +19,7 @@ exports.handler = async (event) => {
     var timestamp = new Date(time).getTime();
 
     try {
-        var proto = fs.readFileSync('message.proto');
+        var proto = fs.readFileSync('Message.proto');
         root = protobuf.parse(proto.toString(), {keepCase: true}).root;
     } catch(error) {
         return {

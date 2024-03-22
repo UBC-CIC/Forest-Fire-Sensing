@@ -11,10 +11,12 @@ exports.handler = async (event) => {
     console.log(`EVENT: ${JSON.stringify(event)}`);
 
     var sensorID = event["end_device_ids"]["dev_eui"];
-    var timestamp = event["uplink_message"]["rx_metadata"][0]["timestamp"];
+    var time = event["uplink_message"]["rx_metadata"][0]["received_at"];
     var payload = event["uplink_message"]["frm_payload"];
     let message;
     let root;
+
+    var timestamp = new Date(time).getTime();
 
     try {
         var proto = fs.readFileSync('message.proto');

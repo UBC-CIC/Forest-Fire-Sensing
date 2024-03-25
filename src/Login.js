@@ -8,7 +8,7 @@ const Login = ({closeHandler}) => {
         <div className="Login-content">
         <Button onClick={closeHandler}>X</Button>
         <Authenticator>
-          {({ signOut, user }) => (
+          {() => (
             closeHandler()
           )}
         </Authenticator>

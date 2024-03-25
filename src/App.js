@@ -44,37 +44,6 @@ function App() {
     return user.username;
   }
 
-  function formatFireData(json) {
-    if (json === "") {
-      return;
-    }
-    json = json['satellite'];
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>FWI</th>
-            <th>Danger Description</th>
-            <th>Danger Value</th>
-            <th>DT</th>
-            <th>Time (UTC)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {json.map((item, index) => (
-            <tr key={index}>
-              <td>{item.fwi}</td>
-              <td>{item.danger_description}</td>
-              <td>{item.danger_value}</td>
-              <td>{item.timestamp}</td>
-              <td>{new Date(item.timestamp * 1000).toUTCString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
-
   function formatLocations(jsonLocations) {
     let result = [];
 

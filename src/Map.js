@@ -17,13 +17,8 @@ function Map({ locations, getLocationData }) {
   const latitude = 49.25;
   const longitude = -123.15;
 
-  const [showVisuals, setShowVisuals] = useState(false);
   const [locationData, setLocationData] = useState();
   const [isDataResolved, setIsDataResolved] = useState(false);
-
-  function showGraph(show) {
-    setShowVisuals(show);
-  }
 
   async function retrieveData(dataPromise) {
     setIsDataResolved(false);
@@ -42,8 +37,7 @@ function Map({ locations, getLocationData }) {
           <Marker position={location} key={location} eventHandlers={{ click: () => { retrieveData(getLocationData(location)) } }}>
             <Popup>
               {!isDataResolved && <Loader size="large" variation="linear"/>}
-              {(showVisuals && isDataResolved) && <FWIVis FWIdata={locationData} />}
-              {isDataResolved && <button onClick={() => showGraph(!showVisuals)}>See As {showVisuals ? "Table" : "Graph"}</button>}
+              {isDataResolved && <FWIVis FWIdata={locationData} />}
             </Popup>
           </Marker>
         ))}

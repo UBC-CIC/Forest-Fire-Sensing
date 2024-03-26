@@ -1,6 +1,6 @@
 import './App.css';
 import { Amplify } from 'aws-amplify';
-import { useAuthenticator, Grid, Card} from '@aws-amplify/ui-react';
+import { useAuthenticator} from '@aws-amplify/ui-react';
 import { get, put } from 'aws-amplify/api';
 import { fetchAuthSession } from 'aws-amplify/auth'
 import awsconfig from './aws-exports';
@@ -152,22 +152,14 @@ function App() {
   return (
     <div className="App">
       <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} getAllLocationData={getAllLocationData} menuIconAction={handleDrawer}/>
-      <Grid className="base">
-        <Drawer open={showDrawer} onClose={handleDrawer}>
-        
-        <Card className="nav">
+      <Drawer open={showDrawer} onClose={handleDrawer}>
           {isLoggedIn() && <UserDevices submitAction={putLocation} />}
-        </Card>
         </Drawer>
-
-        <Card className="main">
-          <Map
+      <Map
             key={onlyUserData ? 'userLocations' : 'publicLocations'}
             locations={onlyUserData ? userLocations : publicLocations}
             getLocationData={getLocationData}
           />
-        </Card>
-      </Grid>
     </div>
   );
 }

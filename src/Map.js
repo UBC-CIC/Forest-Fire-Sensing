@@ -8,13 +8,24 @@ delete L.Icon.Default.prototype._getIconUrl;
 
 const defaultMarker = new L.Icon({
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+
+  iconSize:    [25, 41],
+  iconAnchor:  [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize:  [41, 41]
 })
 
 const greenMarker = new L.Icon({
   iconUrl: require('./icons/green-marker.png'),
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 
+  iconSize:    [25, 41],
+  iconAnchor:  [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize:  [41, 41]
 });
 
 function Map({ locations, getLocationData }) {
@@ -39,7 +50,7 @@ function Map({ locations, getLocationData }) {
     return (
       <>
         {locations.map((location) => (
-          <Marker position={[location.lat, location.lon]} key={[location.lat, location.lon]} icon={location.isUser ? greenMarker : defaultMarker}  eventHandlers={{ click: () => { retrieveData(getLocationData(location)) } }}>
+          <Marker position={[location.lat, location.lon]} key={[location.lat, location.lon]} icon={location.isUser ? greenMarker : defaultMarker} eventHandlers={{ click: () => { retrieveData(getLocationData(location)) } }}>
             <Popup>
               {!isDataResolved && <Loader size="large" variation="linear"/>}
               {isDataResolved && <FWIVis FWIdata={locationData} />}

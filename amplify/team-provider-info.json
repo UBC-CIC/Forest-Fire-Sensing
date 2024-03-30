@@ -126,7 +126,7 @@
         },
         "getLocationData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/getLocationData-53584144597a4e394d78-build.zip"
+          "s3Key": "amplify-builds/getLocationData-626f474b41464778742f-build.zip"
         },
         "491satelliteAll": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",

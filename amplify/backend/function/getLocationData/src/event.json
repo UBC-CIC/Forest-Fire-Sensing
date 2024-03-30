@@ -1,6 +1,5 @@
 {
   "queryStringParameters": {
-    "lat": 49.2827,
-    "lon": -123.1207
+    "sensorID": "2CF7F12051004508"
   }
 }

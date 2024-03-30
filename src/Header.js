@@ -66,8 +66,7 @@ function Header({ username, authStatus, signOut, getAllLocationData, menuIconAct
                                 open={Boolean(menuAnchor)}
                                 onClose={handleMenuClose}
                             >
-                                <MenuItem onClick={() => getAllLocationData(false)}>View Public Locations</MenuItem>
-                                <MenuItem onClick={() => getAllLocationData(true)}>View User Sensors</MenuItem>
+                                <MenuItem onClick={() => getAllLocationData()}>View Sensors</MenuItem>
                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                             </Menu>
                         </div>

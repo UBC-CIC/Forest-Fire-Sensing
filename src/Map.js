@@ -6,10 +6,15 @@ import FWIVis from "./FWIVis";
 import { Loader } from "@aws-amplify/ui-react";
 delete L.Icon.Default.prototype._getIconUrl;
 
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+const defaultMarker = new L.Icon({
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+})
+
+const greenMarker = new L.Icon({
+  iconUrl: require('./icons/green-marker.png'),
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+
 });
 
 function Map({ locations, getLocationData }) {
@@ -34,7 +39,7 @@ function Map({ locations, getLocationData }) {
     return (
       <>
         {locations.map((location) => (
-          <Marker position={location} key={location} eventHandlers={{ click: () => { retrieveData(getLocationData(location)) } }}>
+          <Marker position={[location.lat, location.lon]} key={[location.lat, location.lon]} icon={location.isUser ? greenMarker : defaultMarker}  eventHandlers={{ click: () => { retrieveData(getLocationData(location)) } }}>
             <Popup>
               {!isDataResolved && <Loader size="large" variation="linear"/>}
               {isDataResolved && <FWIVis FWIdata={locationData} />}

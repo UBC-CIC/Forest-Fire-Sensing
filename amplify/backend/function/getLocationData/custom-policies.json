@@ -2,7 +2,8 @@
   {
     "Effect": "Allow",
     "Action": [
-      "dynamodb:Query"
+      "dynamodb:Query",
+      "dynamodb:Scan"
     ],
     "Resource": ["*"]
   }

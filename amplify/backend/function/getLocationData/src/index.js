@@ -10,7 +10,7 @@ exports.handler = async (event) => {
     var sensorID = event["queryStringParameters"]['sensorID'];
     const currentTimestamp = Math.floor(Date.now() / 1000);
 
-    const params = {
+    const paramsSatellite = {
         TableName: 'satelliteData-ampdev',
         KeyConditionExpression: 'sensorID = :sensorIDVal AND #ts > :currentTs',
         ExpressionAttributeNames: {
@@ -21,15 +21,26 @@ exports.handler = async (event) => {
             ':currentTs': currentTimestamp
         }
     }
+
+    const paramsSensor = {
+        TableName: "sensorData-ampdev",
+        FilterExpression: '#sensorID = :sensorIDVal',
+        ExpressionAttributeValues: {
+            ':sensorIDVal': sensorID
+        },
+        ExpressionAttributeNames: {
+            '#sensorID' : 'sensorID'
+        }
+    };
     try {
-        const data = await ddb.query(params).promise();
-        // TO-DO: get sensor data
+        const dataSatellite = await ddb.query(paramsSatellite).promise();
+        const dataSensor = await ddb.scan(paramsSensor).promise();
         return { statusCode: 200, 
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Headers": "*"
                 },
-               body: JSON.stringify({"satellite": data.Items, "sensor": []}) };
+               body: JSON.stringify({"satellite": dataSatellite.Items, "sensor": dataSensor.Items}) };
     } catch (err) {
         return { 
             statusCode: 500, 

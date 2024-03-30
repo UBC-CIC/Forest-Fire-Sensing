@@ -13,9 +13,7 @@ import {Drawer} from '@mui/material'
 Amplify.configure(awsconfig);
 
 function App() {
-  const [publicLocations, setPublicLocations] = useState();
-  const [userLocations, setUserLocations] = useState();
-  const [onlyUserData, setOnlyUserData] = useState(false);
+  const [locations, setLocations] = useState();
   const [showDrawer, setShowDrawer] = useState(false);
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
@@ -24,9 +22,7 @@ function App() {
   useEffect(() => {
     // Reset state when user signs out
     if (authStatus !== 'authenticated') {
-      setPublicLocations(undefined);
-      setUserLocations(undefined);
-      setOnlyUserData(false);
+      setLocations(undefined);
     }
   }, [authStatus]);
 
@@ -44,15 +40,18 @@ function App() {
     return user.username;
   }
 
-  function formatLocations(jsonLocations) {
+  function formatLocations(jsonLocations, userSensors) {
     let result = [];
 
     jsonLocations.forEach((item) => {
-      let lat = item.lat.N;
-      let lon = item.lon.N;
-      let sensorID = item.sensorID.S;
+      var location = {
+        lat: item.lat.N,
+        lon: item.lon.N,
+        sensorID: item.sensorID.S,
+        isUser: userSensors
+      }
 
-      result.push([lat, lon, sensorID])
+      result.push(location);
     });
     return result;
   }
@@ -81,10 +80,10 @@ function App() {
     try {
       const restOperation = get({
         apiName: 'apib7c99001',
-        path: `/data/${params[2]}`,
+        path: `/data/${params.sensorID}`,
         options: {
           queryParams: {
-            "sensorID": params[2]
+            "sensorID": params.sensorID
           }
         }
       });
@@ -141,12 +140,26 @@ function App() {
   }
 
 
-  async function getAllLocationData(isUserLocation) {
-    const jsonLocations = isUserLocation ? await getUserSensors() : await getLocations();
-    const locationList = formatLocations(jsonLocations);
+  async function getAllLocationData() {
+    var jsonLocations = await getLocations();
+    var locationList = formatLocations(jsonLocations, false);
 
-    isUserLocation ? setUserLocations(locationList) : setPublicLocations(locationList);
-    isUserLocation ? setOnlyUserData(true) : setOnlyUserData(false);
+    if(isLoggedIn()){
+      jsonLocations = await getUserSensors();
+      var userLocations = formatLocations(jsonLocations, true);
+      // Filter out duplicates (i.e. sensors that are both public and user)
+      locationList = locationList.filter(location => {
+        var isDuplicate = false;
+        userLocations.forEach(uLocation =>{
+          if(location.sensorID === uLocation.sensorID)
+            isDuplicate = true;
+        })
+        return !isDuplicate;
+      })
+      locationList = locationList.concat(userLocations);
+    }
+
+    setLocations(locationList);
   }
 
   return (
@@ -156,8 +169,8 @@ function App() {
           {isLoggedIn() && <UserDevices submitAction={putLocation} />}
         </Drawer>
       <Map
-            key={onlyUserData ? 'userLocations' : 'publicLocations'}
-            locations={onlyUserData ? userLocations : publicLocations}
+            key={'map'}
+            locations={locations}
             getLocationData={getLocationData}
           />
     </div>

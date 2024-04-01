@@ -146,7 +146,7 @@
         },
         "deleteSensorData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/deleteSensorData-70376832362f4c337071-build.zip"
+          "s3Key": "amplify-builds/deleteSensorData-62715154376972624f42-build.zip"
         },
         "storeSensorData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",

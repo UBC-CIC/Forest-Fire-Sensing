@@ -4,6 +4,10 @@
       "satelliteData": [
         "read",
         "delete"
+      ],
+      "sensorData": [
+        "read",
+        "delete"
       ]
     }
   },

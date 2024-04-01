@@ -27,6 +27,18 @@
     "storagesatelliteDataStreamArn": {
       "Type": "String",
       "Default": "storagesatelliteDataStreamArn"
+    },
+    "storagesensorDataName": {
+      "Type": "String",
+      "Default": "storagesensorDataName"
+    },
+    "storagesensorDataArn": {
+      "Type": "String",
+      "Default": "storagesensorDataArn"
+    },
+    "storagesensorDataStreamArn": {
+      "Type": "String",
+      "Default": "storagesensorDataStreamArn"
     }
   },
   "Conditions": {
@@ -90,6 +102,15 @@
             },
             "STORAGE_SATELLITEDATA_STREAMARN": {
               "Ref": "storagesatelliteDataStreamArn"
+            },
+            "STORAGE_SENSORDATA_NAME": {
+              "Ref": "storagesensorDataName"
+            },
+            "STORAGE_SENSORDATA_ARN": {
+              "Ref": "storagesensorDataArn"
+            },
+            "STORAGE_SENSORDATA_STREAMARN": {
+              "Ref": "storagesensorDataStreamArn"
             }
           }
         },
@@ -224,6 +245,36 @@
                     [
                       {
                         "Ref": "storagesatelliteDataArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:PartiQLSelect",
+                "dynamodb:Delete*",
+                "dynamodb:PartiQLDelete"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagesensorDataArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagesensorDataArn"
                       },
                       "index/*"
                     ]

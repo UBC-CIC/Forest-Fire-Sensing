@@ -156,6 +156,15 @@
           ],
           "category": "storage",
           "resourceName": "satelliteData"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "sensorData"
         }
       ],
       "providerPlugin": "awscloudformation",

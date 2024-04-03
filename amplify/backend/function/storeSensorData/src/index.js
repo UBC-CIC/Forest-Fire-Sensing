@@ -19,7 +19,7 @@ exports.handler = async (event) => {
     var timestamp = new Date(time).getTime();
 
     try {
-        var proto = fs.readFileSync('Message.proto');
+        var proto = fs.readFileSync('message.proto');
         root = protobuf.parse(proto.toString(), {keepCase: true}).root;
     } catch(error) {
         return {
@@ -42,7 +42,13 @@ exports.handler = async (event) => {
         'temperature': {'N': message['temperature'].toString()},
         'humidity': {'N': message['humidity'].toString()},
         'pressure': {'N': message['pressure'].toString()},
-        'gas_resistence': {'N': message['gas_resistence'].toString()} 
+        'co_2': {'N': message['co_2'].toString()},
+        'voc': {'N': message['voc'].toString()},
+        'temperature_2': {'N': message['temperature_2'].toString()},
+        'humidity_2': {'N': message['humidity_2'].toString()},
+        'pressure_2': {'N': message['pressure_2'].toString()},
+        'co_2_2': {'N': message['co_2_2'].toString()},
+        'voc_2': {'N': message['voc_2'].toString()}
     };
 
     const params = {

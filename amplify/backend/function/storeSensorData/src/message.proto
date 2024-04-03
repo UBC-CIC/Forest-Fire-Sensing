@@ -4,9 +4,11 @@ message Message {
     optional float temperature = 1;
     optional float humidity = 2;
     optional float pressure = 3;
-    optional float gas_resistence = 4;
-    optional float temperature_2 = 5;
-    optional float humidity_2 = 6;
-    optional float pressure_2 = 7;
-    optional float gas_resistence_2 = 8;
+    optional float co_2 = 4;
+    optional float voc = 5;
+    optional float temperature_2 = 6;
+    optional float humidity_2 = 7;
+    optional float pressure_2 = 8;
+    optional float co_2_2 = 9;
+    optional float voc_2 = 10;
 }

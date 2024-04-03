@@ -7,7 +7,7 @@ const Login = ({closeHandler}) => {
         <div className="Login-overlay">
         <div className="Login-content">
         <Button onClick={closeHandler}>X</Button>
-        <Authenticator>
+        <Authenticator signUpAttributes={['email', 'phone_number']}>
           {() => (
             closeHandler()
           )}

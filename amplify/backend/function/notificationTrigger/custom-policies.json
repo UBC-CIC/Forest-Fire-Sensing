@@ -1,0 +1,6 @@
+[
+  {
+    "Action": ["sns:Publish"],
+    "Resource": ["arn:aws:sns:ca-central-1:992604132616:FireAlert"] 
+  }
+]

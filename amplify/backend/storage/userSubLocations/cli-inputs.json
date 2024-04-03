@@ -1,0 +1,10 @@
+{
+  "resourceName": "userSubLocations",
+  "tableName": "userSubLocations",
+  "partitionKey": {
+    "fieldName": "username",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

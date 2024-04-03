@@ -1,0 +1,29 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "snsTopicArn",
+      "environmentVariableName": "SNS_TOPIC_ARN"
+    },
+    {
+      "cloudFormationParameterName": "cognitoUserPoolId",
+      "environmentVariableName": "COGNITO_USER_POOL_ID"
+    },
+    {
+      "cloudFormationParameterName": "snsTopicArn",
+      "environmentVariableName": "SNS_TOPIC_ARN"
+    }
+  ],
+  "permissions": {
+    "api": {
+      "apib7c99001": [
+        "read"
+      ]
+    },
+    "auth": {
+      "491m2prototype": [
+        "read"
+      ]
+    }
+  }
+}

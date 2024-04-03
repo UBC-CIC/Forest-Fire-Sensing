@@ -180,6 +180,28 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "notificationTrigger": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "ApiName",
+            "ApiId"
+          ],
+          "category": "api",
+          "resourceName": "apib7c99001"
+        },
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "491m2prototype"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "storeSensorData": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -331,6 +353,38 @@
         }
       ]
     },
+    "AMPLIFY_function_notificationTrigger_cognitoUserPoolId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationTrigger_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationTrigger_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationTrigger_snsTopicArn": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationTrigger"
+        }
+      ]
+    },
     "AMPLIFY_function_storeSensorData_deploymentBucketName": {
       "usedBy": [
         {
@@ -358,6 +412,10 @@
       "service": "DynamoDB"
     },
     "sensors": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "userSubLocations": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

@@ -1,11 +1,3 @@
-/* Amplify Params - DO NOT EDIT
-	API_APIB7C99001_APIID
-	API_APIB7C99001_APINAME
-	AUTH_491M2PROTOTYPE_USERPOOLID
-	ENV
-	REGION
-Amplify Params - DO NOT EDIT */
-
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
@@ -40,7 +32,6 @@ exports.handler = async (event) => {
         // TODO: filter out users who are outside the region (currently adding everyone)
         console.log(data);
         for(item of data.Items){
-            console.log(item);
             const user = await cognito.adminGetUser({
                 UserPoolId: process.env.COGNITO_USER_POOL_ID,
                 Username: item.username.S

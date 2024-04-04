@@ -134,7 +134,7 @@
         },
         "getUserSensors": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/getUserSensors-496f577936713571322f-build.zip"
+          "s3Key": "amplify-builds/getUserSensors-6c316853765761447565-build.zip"
         },
         "491getAllLocations": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
@@ -154,7 +154,7 @@
         },
         "notificationTrigger": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/notificationTrigger-4d53626d684a55656374-build.zip",
+          "s3Key": "amplify-builds/notificationTrigger-584a3854525575724e55-build.zip",
           "cognitoUserPoolId": "ca-central-1_Rjv5YlAGS",
           "snsTopicArn": "arn:aws:sns:ca-central-1:992604132616:FireAlert"
         }

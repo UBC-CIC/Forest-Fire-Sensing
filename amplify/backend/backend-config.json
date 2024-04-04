@@ -24,7 +24,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "getUserSensors"
+          "resourceName": "491putLocation"
         },
         {
           "attributes": [
@@ -32,7 +32,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "491putLocation"
+          "resourceName": "getUserSensors"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -182,23 +182,6 @@
     },
     "notificationTrigger": {
       "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "ApiName",
-            "ApiId"
-          ],
-          "category": "api",
-          "resourceName": "apib7c99001"
-        },
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "491m2prototype"
-        }
-      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },

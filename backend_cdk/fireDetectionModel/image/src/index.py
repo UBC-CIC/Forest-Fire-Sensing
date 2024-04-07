@@ -16,7 +16,7 @@ def handler(event, context):
   model = joblib.load(model_file)
   std_scaler = joblib.load(scaler_file)
 
-  input_data = np.array(json.loads(event)).reshape(1,-1)
+  input_data = np.array(event).reshape(1,-1)
   input_data = std_scaler.transform(input_data)
 
   result = model.predict(input_data)

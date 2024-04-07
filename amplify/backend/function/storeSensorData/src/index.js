@@ -4,6 +4,7 @@
 
 const AWS = require('aws-sdk');
 const dynamoDB = new AWS.DynamoDB();
+const lambda = new AWS.Lambda();
 
 exports.handler = async (event) => {
     var protobuf = require("protobufjs");
@@ -35,7 +36,15 @@ exports.handler = async (event) => {
     var Message = root.lookupType("Message");
     var buffer = Buffer.from(payload, 'base64');
     message = Message.decode(buffer);
-
+    
+    var result = await lambda.invoke({
+        FunctionName: 'FireDetectionModelStack-fireDetectionModelE3DD7B9A-RIrWxa7LYXiO',
+        Payload: JSON.stringify([message['temperature'], message['humidity'], message['voc'], message['co_2'], message['pressure']])
+    }).promise();
+    
+    var fireResult = JSON.parse(result['Payload']);
+    var isFire = (fireResult['body'] === "0") ? false : true;
+    
     const item = {
         'sensorID': {'S': sensorID},
         'timestamp': {'N': timestamp.toString()},
@@ -48,7 +57,8 @@ exports.handler = async (event) => {
         'humidity_2': {'N': message['humidity_2'].toString()},
         'pressure_2': {'N': message['pressure_2'].toString()},
         'co_2_2': {'N': message['co_2_2'].toString()},
-        'voc_2': {'N': message['voc_2'].toString()}
+        'voc_2': {'N': message['voc_2'].toString()},
+        'isFire': {'BOOL': isFire}
     };
 
     const params = {

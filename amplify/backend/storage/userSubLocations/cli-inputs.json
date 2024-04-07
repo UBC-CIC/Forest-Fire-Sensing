@@ -5,6 +5,10 @@
     "fieldName": "username",
     "fieldType": "string"
   },
+  "sortKey": {
+    "fieldName": "sub_time",
+    "fieldType": "number"
+  },
   "gsi": [],
   "triggerFunctions": []
 }

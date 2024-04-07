@@ -150,7 +150,7 @@
         },
         "storeSensorData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/storeSensorData-6d6e532b336243646176-build.zip"
+          "s3Key": "amplify-builds/storeSensorData-744634704d2f38542f34-build.zip"
         },
         "notificationTrigger": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",

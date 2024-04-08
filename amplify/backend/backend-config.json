@@ -145,6 +145,22 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "addUserSub": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "userSubLocations"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "deleteSensorData": {
       "build": true,
       "dependsOn": [
@@ -165,6 +181,22 @@
           ],
           "category": "storage",
           "resourceName": "sensorData"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "deleteUserSub": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "userSubLocations"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -288,6 +320,22 @@
         }
       ]
     },
+    "AMPLIFY_function_addUserSub_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserSub"
+        }
+      ]
+    },
+    "AMPLIFY_function_addUserSub_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserSub"
+        }
+      ]
+    },
     "AMPLIFY_function_deleteSensorData_deploymentBucketName": {
       "usedBy": [
         {
@@ -301,6 +349,22 @@
         {
           "category": "function",
           "resourceName": "deleteSensorData"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteUserSub_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteUserSub"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteUserSub_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteUserSub"
         }
       ]
     },

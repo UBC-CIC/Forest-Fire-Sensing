@@ -157,6 +157,14 @@
           "s3Key": "amplify-builds/notificationTrigger-4d53626d684a55656374-build.zip",
           "cognitoUserPoolId": "ca-central-1_Rjv5YlAGS",
           "snsTopicArn": "arn:aws:sns:ca-central-1:992604132616:FireAlert"
+        },
+        "addUserSub": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/addUserSub-396b454b4b3957657957-build.zip"
+        },
+        "deleteUserSub": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/deleteUserSub-56395037484b74614730-build.zip"
         }
       },
       "api": {

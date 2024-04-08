@@ -6,7 +6,7 @@
     "fieldType": "string"
   },
   "sortKey": {
-    "fieldName": "sub_time",
+    "fieldName": "createTime",
     "fieldType": "number"
   },
   "gsi": [],

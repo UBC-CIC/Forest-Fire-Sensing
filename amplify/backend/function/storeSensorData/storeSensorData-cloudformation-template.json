@@ -175,7 +175,8 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:PutItem"
+                "dynamodb:PutItem",
+                "lambda:InvokeFunction"
               ],
               "Resource": [
                 "*"

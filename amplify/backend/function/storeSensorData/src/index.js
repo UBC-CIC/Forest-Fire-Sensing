@@ -36,14 +36,39 @@ exports.handler = async (event) => {
     var Message = root.lookupType("Message");
     var buffer = Buffer.from(payload, 'base64');
     message = Message.decode(buffer);
+
+
+    // Pick the "worse" value between the sensors 
+    // Better to get a false positive rather than a false negative
+    var tempToSend = (message['temperature'] > message['temperature_2']) ? message['temperature'] : message['temperature_2'];
+    var humidityToSend = (message['humidity'] > message['humidity_2']) ? message['humidity'] : message['humidity_2'];
+    var vocToSend = (message['voc'] > message['voc_2']) ? message['voc'] : message['voc_2'];
+    var co_2ToSend = (message['co_2'] > message['co_2_2']) ? message['co_2'] : message['co_2_2'];
+    var pressureToSend = (message['pressure'] > message['pressure_2']) ? message['pressure'] : message['pressure_2'];
     
+    // Invoke lambda function to predict if there's a fire based on sensor values
     var result = await lambda.invoke({
         FunctionName: 'FireDetectionModelStack-fireDetectionModelE3DD7B9A-RIrWxa7LYXiO',
-        Payload: JSON.stringify([message['temperature'], message['humidity'], message['voc'], message['co_2'], message['pressure']])
+        Payload: JSON.stringify([tempToSend, humidityToSend, vocToSend, co_2ToSend, pressureToSend])
     }).promise();
     
     var fireResult = JSON.parse(result['Payload']);
     var isFire = (fireResult['body'] === "0") ? false : true;
+
+    // Notify users in case of fire
+    if(isFire){
+        const notificationParams = {
+            FunctionName: 'notificationTrigger-ampdev',
+            InvocationType: 'Event',
+            LogType: 'None',
+            Payload: JSON.stringify({
+              "queryStringParameters": {
+                'sensorID': sensorID
+              }
+          })};
+
+        var response = lambda.invoke(notificationParams).promise();
+    }
     
     const item = {
         'sensorID': {'S': sensorID},

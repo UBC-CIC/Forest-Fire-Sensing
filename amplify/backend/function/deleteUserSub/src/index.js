@@ -15,7 +15,27 @@ AWS.config.update({region: 'ca-central-1'});
 const ddb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
-    var username = event["queryStringParameters"]["username"];
+
+    console.log(`EVENT: ${JSON.stringify(event)}`);
+    let name = "";
+    if (event.requestContext.authorizer) {
+        console.log(`CLAIMS: `, event.requestContext.authorizer.claims);
+        name = event.requestContext.authorizer.claims["cognito:username"];
+    }
+
+    let headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*"
+    };
+
+    if (name === "")
+        return {
+            statusCode: 401,
+            headers: headers,
+            body: JSON.stringify("Invalid Authorization: Does not contain username")
+        };
+
+    var username = name;
     var createTime = event["queryStringParameters"]["createTime"];
 
     const errorReturnVal = (errMsg, statusCode = 500) => {

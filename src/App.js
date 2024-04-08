@@ -99,7 +99,7 @@ function App() {
     try {
       const authToken = await getUserToken();
       const restOperation = get({
-        apiName: 'apib7c99001',
+        apiName: 'authapi',
         path: `/user-sensors`,
         options: {
           headers:{Authorization: authToken}
@@ -118,7 +118,7 @@ function App() {
     try {
       const authToken = await getUserToken();
       const restOperation = put({
-        apiName: 'apib7c99001',
+        apiName: 'authapi',
         path: `/location/${params['devEUI']}`,
         options: {
           queryParams: {

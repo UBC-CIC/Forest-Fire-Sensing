@@ -14,20 +14,6 @@
       "permissions": {
         "setting": "open"
       }
-    },
-    "/location/{sensorID}": {
-      "name": "/location/{sensorID}",
-      "lambdaFunction": "491putLocation",
-      "permissions": {
-        "setting": "open"
-      }
-    },
-    "/user-sensors": {
-      "name": "/user-sensors",
-      "lambdaFunction": "getUserSensors",
-      "permissions": {
-        "setting": "open"
-      }
     }
   }
 }

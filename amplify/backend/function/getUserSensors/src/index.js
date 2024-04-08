@@ -3,36 +3,27 @@
  */
 const AWS = require('aws-sdk');
 const dynamoDB = new AWS.DynamoDB();
-const { CognitoJwtVerifier } = require("aws-jwt-verify");
 
 
 exports.handler = async (event) => {
-    const authToken = event.headers['Authorization']
-    console.log(authToken)
-    // Verifier that expects valid access tokens:
-    const verifier = CognitoJwtVerifier.create({
-        userPoolId: "ca-central-1_Rjv5YlAGS",
-        tokenUse: "id",
-        clientId: "3pb31a4ag8928nkmfjflrb0nc3",
-    });
-    
-    let payload;
-    const headers = {
+    console.log(`EVENT: ${JSON.stringify(event)}`);
+    let name = "";
+    if (event.requestContext.authorizer) {
+        console.log(`CLAIMS: `, event.requestContext.authorizer.claims);
+        name = event.requestContext.authorizer.claims["cognito:username"];
+    }
+
+    let headers = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*"
     };
 
-    try {
-        payload = await verifier.verify(authToken);
-    } catch (error) { 
+    if (name === "")
         return {
-        statusCode: 401,
-        headers: headers,
-        body: JSON.stringify(error)
+            statusCode: 401,
+            headers: headers,
+            body: JSON.stringify("Invalid Authorization: Does not contain username")
         };
-    }
-
-    let name = payload["cognito:username"];
 
     const params = {
         TableName: "sensors-ampdev",

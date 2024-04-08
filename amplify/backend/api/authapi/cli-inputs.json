@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "paths": {
+    "/cancelSub/{username}/{createTime}": {
+      "name": "/cancelSub/{username}/{createTime}",
+      "lambdaFunction": "deleteUserSub",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/sub/{username}/{coord}": {
+      "name": "/sub/{username}/{coord}",
+      "lambdaFunction": "addUserSub",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/user-sensors": {
+      "name": "/user-sensors",
+      "lambdaFunction": "getUserSensors",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/location/{sensorID}": {
+      "name": "/location/{sensorID}",
+      "lambdaFunction": "491putLocation",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}

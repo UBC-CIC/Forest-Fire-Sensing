@@ -18,35 +18,30 @@ const AWS = require('aws-sdk');
 const dynamoDB = new AWS.DynamoDB();
 const _ = require('lodash')
 const lambda = new AWS.Lambda({region: 'ca-central-1'});
-const { CognitoJwtVerifier } = require("aws-jwt-verify");
 
 
 exports.handler = async (event) => {
 
-  const authToken = event.headers['Authorization']
-  // Verifier that expects valid access tokens:
-  const verifier = CognitoJwtVerifier.create({
-      userPoolId: "ca-central-1_Rjv5YlAGS",
-      tokenUse: "id",
-      clientId: "3pb31a4ag8928nkmfjflrb0nc3",
-  });
-  
-  let payload;
-
-  try {
-    payload = await verifier.verify(authToken);
-  } catch (error) { 
-    return {
-      statusCode: 401,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*"
-      },
-      body: JSON.stringify(error)
-    };
+  console.log(`EVENT: ${JSON.stringify(event)}`);
+  let name = "";
+  if (event.requestContext.authorizer) {
+      console.log(`CLAIMS: `, event.requestContext.authorizer.claims);
+      name = event.requestContext.authorizer.claims["cognito:username"];
   }
 
-  let user = payload["cognito:username"];
+  let headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*"
+  };
+
+  if (name === "")
+      return {
+          statusCode: 401,
+          headers: headers,
+          body: JSON.stringify("Invalid Authorization: Does not contain username")
+      };
+
+  var user = name
   var sensorID = event["queryStringParameters"]['sensorID'];
   var lat = event["queryStringParameters"]['lat'];
   var lon = event["queryStringParameters"]['lon'];

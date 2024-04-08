@@ -134,7 +134,7 @@
         },
         "getUserSensors": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/getUserSensors-3754794c3464564d3262-build.zip"
+          "s3Key": "amplify-builds/getUserSensors-67524b61795649375672-build.zip"
         },
         "491getAllLocations": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
@@ -142,7 +142,7 @@
         },
         "491putLocation": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491putLocation-4777455175303832764a-build.zip"
+          "s3Key": "amplify-builds/491putLocation-6e6d665335677156422b-build.zip"
         },
         "deleteSensorData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
@@ -154,21 +154,22 @@
         },
         "notificationTrigger": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/notificationTrigger-4d53626d684a55656374-build.zip",
+          "s3Key": "amplify-builds/notificationTrigger-584a3854525575724e55-build.zip",
           "cognitoUserPoolId": "ca-central-1_Rjv5YlAGS",
           "snsTopicArn": "arn:aws:sns:ca-central-1:992604132616:FireAlert"
         },
         "addUserSub": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/addUserSub-396b454b4b3957657957-build.zip"
+          "s3Key": "amplify-builds/addUserSub-736e7749364d476a7065-build.zip"
         },
         "deleteUserSub": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/deleteUserSub-56395037484b74614730-build.zip"
+          "s3Key": "amplify-builds/deleteUserSub-78764873677879537a51-build.zip"
         }
       },
       "api": {
-        "apib7c99001": {}
+        "apib7c99001": {},
+        "authapi": {}
       },
       "storage": {
         "sensors": {},

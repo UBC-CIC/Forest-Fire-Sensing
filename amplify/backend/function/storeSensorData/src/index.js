@@ -44,6 +44,20 @@ exports.handler = async (event) => {
     
     var fireResult = JSON.parse(result['Payload']);
     var isFire = (fireResult['body'] === "0") ? false : true;
+
+    if(isFire){
+        const notificationParams = {
+            FunctionName: 'notificationTrigger-ampdev',
+            InvocationType: 'Event',
+            LogType: 'None',
+            Payload: JSON.stringify({
+              "queryStringParameters": {
+                'sensorID': sensorID
+              }
+          })};
+
+        var response = lambda.invoke(notificationParams).promise();
+    }
     
     const item = {
         'sensorID': {'S': sensorID},

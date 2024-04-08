@@ -9,5 +9,5 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1569.0"
-  }
+  } 
 }

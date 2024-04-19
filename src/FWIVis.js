@@ -3,7 +3,7 @@ import { LineChart } from "@mui/x-charts";
 function FWIVis(FWIData) {
     const timeData = [];
     const indexData = [];
-    FWIData = FWIData['FWIdata']['satellite'];
+    FWIData = FWIData['FWIData'];
     FWIData.forEach((item) => {
         timeData.push(item.timestamp*1000);
         indexData.push(item.fwi);

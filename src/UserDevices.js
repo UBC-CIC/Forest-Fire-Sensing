@@ -9,27 +9,22 @@ function UserDevices({ submitAction_2, submitAction_3, submitAction_4, queryActi
             <Tabs
                 items={[
                     {
-                        label: "Manage Devices",
-                        value: '1',
-                        content: 'TODO'
-                    },
-                    {
                         label: "Add Device",
-                        value: '2',
+                        value: '1',
                         content: (
                             <AddDevice submitAction={submitAction_2}/>
                         )
                     },
                     {
                         label: "Add Subscription",
-                        value: '3',
+                        value: '2',
                         content: (
                             <AddSubscription submitAction={submitAction_3}/>
                         )
                     },
                     {
                         label: "Cancel Subscription",
-                        value: '4',
+                        value: '3',
                         content: (
                             <CancelSub queryAction={queryAction} submitAction={submitAction_4}/>
                         )

@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { AppBar, IconButton, Box, Typography, Toolbar, Menu, MenuItem } from "@mui/material";
+import { AppBar, IconButton, Box, Toolbar, Menu, MenuItem } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Button } from '@aws-amplify/ui-react';
 import Login from './Login';
+import logo from './icons/firewatch2.png'
 
 function Header({ username, authStatus, signOut, getAllLocationData, menuIconAction }) {
     const [loginOverlay, setLoginOverlay] = useState(false);
@@ -31,7 +32,7 @@ function Header({ username, authStatus, signOut, getAllLocationData, menuIconAct
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar>
                     <IconButton
                         size='large'
@@ -41,14 +42,8 @@ function Header({ username, authStatus, signOut, getAllLocationData, menuIconAct
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h3"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'block', sm: 'block' } }}
-                    >
-                        Fire Detection🌲🔥
-                    </Typography>
+                    <img src={logo} alt="logo" style={{margin: 'auto', maxHeight: '64px', textAlign: 'center'}} />
+
 
                     {authStatus && (
                         <div>

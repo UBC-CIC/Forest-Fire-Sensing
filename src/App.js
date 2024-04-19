@@ -1,6 +1,6 @@
 import './App.css';
 import { Amplify } from 'aws-amplify';
-import { useAuthenticator} from '@aws-amplify/ui-react';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 import { get, put } from 'aws-amplify/api';
 import { fetchAuthSession } from 'aws-amplify/auth'
 import awsconfig from './aws-exports';
@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import Map from './Map';
 import UserDevices from './UserDevices';
 import Header from './Header';
-import {Drawer} from '@mui/material'
+import { Drawer } from '@mui/material'
 
 Amplify.configure(awsconfig);
 
@@ -18,6 +18,8 @@ function App() {
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+
+  const appBarHeight = 64; // Typically 64px for desktop AppBar
 
   useEffect(() => {
     // Reset state when user signs out
@@ -30,7 +32,7 @@ function App() {
     return authStatus === 'authenticated';
   }
 
-  function handleDrawer(){
+  function handleDrawer() {
     setShowDrawer(!showDrawer);
   }
 
@@ -102,7 +104,7 @@ function App() {
         apiName: 'authapi',
         path: `/user-sensors`,
         options: {
-          headers:{Authorization: authToken}
+          headers: { Authorization: authToken }
         }
       });
       const response = await restOperation.response;
@@ -128,7 +130,7 @@ function App() {
             locationName: params['name'],
             publicLocation: params['publicLocation'],
           },
-          headers:{Authorization: authToken}
+          headers: { Authorization: authToken }
         }
       });
       const response = await restOperation.response;
@@ -142,8 +144,8 @@ function App() {
   async function addSubscription(params) {
     try {
       const authToken = await getUserToken();
-      const lat =  params['lat'];
-      const lon =  params['lat'];
+      const lat = params['lat'];
+      const lon = params['lat'];
       const restOperation = put({
         apiName: 'authapi',
         path: `/sub/${getUsername()}/${lat}#${lon}`,
@@ -152,7 +154,7 @@ function App() {
             lat: lat,
             lon: lon,
           },
-          headers:{Authorization: authToken}
+          headers: { Authorization: authToken }
         }
       });
       const response = await restOperation.response;
@@ -166,8 +168,8 @@ function App() {
   async function cancelSub(params) {
     try {
       const authToken = await getUserToken();
-      const username =  getUsername();
-      const createTime =  params['createTime'];
+      const username = getUsername();
+      const createTime = params['createTime'];
       const restOperation = put({
         apiName: 'authapi',
         path: `/cancelSub/${username}/${createTime}`,
@@ -176,7 +178,7 @@ function App() {
             username: username,
             createTime: createTime,
           },
-          headers:{Authorization: authToken}
+          headers: { Authorization: authToken }
         }
       });
       const response = await restOperation.response;
@@ -190,12 +192,12 @@ function App() {
   async function querySub() {
     try {
       const authToken = await getUserToken();
-      const username =  getUsername();
+      const username = getUsername();
       const restOperation = get({
         apiName: 'authapi',
         path: `/subs/${username}`,
         options: {
-          headers:{Authorization: authToken}
+          headers: { Authorization: authToken }
         }
       });
       const response = await restOperation.response;
@@ -211,14 +213,14 @@ function App() {
     var jsonLocations = await getLocations();
     var locationList = formatLocations(jsonLocations, false);
 
-    if(isLoggedIn()){
+    if (isLoggedIn()) {
       jsonLocations = await getUserSensors();
       var userLocations = formatLocations(jsonLocations, true);
       // Filter out duplicates (i.e. sensors that are both public and user)
       locationList = locationList.filter(location => {
         var isDuplicate = false;
-        userLocations.forEach(uLocation =>{
-          if(location.sensorID === uLocation.sensorID)
+        userLocations.forEach(uLocation => {
+          if (location.sensorID === uLocation.sensorID)
             isDuplicate = true;
         })
         return !isDuplicate;
@@ -231,15 +233,21 @@ function App() {
 
   return (
     <div className="App">
-      <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} getAllLocationData={getAllLocationData} menuIconAction={handleDrawer}/>
-      <Drawer open={showDrawer} onClose={handleDrawer}>
-          {isLoggedIn() && <UserDevices submitAction_2={putLocation} submitAction_3={addSubscription} submitAction_4={cancelSub} queryAction={querySub}/>}
-        </Drawer>
+      <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} getAllLocationData={getAllLocationData} menuIconAction={handleDrawer} />
+      <Drawer open={showDrawer} onClose={handleDrawer}
+        sx={{
+          '& .MuiDrawer-paper': {
+            top: `${appBarHeight}px`, // Start below the AppBar
+            height: `calc(100% - ${appBarHeight}px)`, // Adjust height to fit below AppBar
+          }
+        }}>
+        {isLoggedIn() && <UserDevices submitAction_2={putLocation} submitAction_3={addSubscription} submitAction_4={cancelSub} queryAction={querySub} />}
+      </Drawer>
       <Map
-            key={'map'}
-            locations={locations}
-            getLocationData={getLocationData}
-          />
+        key={'map'}
+        locations={locations}
+        getLocationData={getLocationData}
+      />
     </div>
   );
 }

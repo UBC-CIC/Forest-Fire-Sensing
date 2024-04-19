@@ -1,9 +1,8 @@
 import { useRef, useState } from "react";
-import { MapContainer, Popup, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
-import FWIVis from "./FWIVis";
-import { Loader } from "@aws-amplify/ui-react";
+import DataDashboard from "./DataDashboard";
 delete L.Icon.Default.prototype._getIconUrl;
 
 const defaultMarker = new L.Icon({
@@ -36,6 +35,8 @@ function Map({ locations, getLocationData }) {
   const [locationData, setLocationData] = useState();
   const [isDataResolved, setIsDataResolved] = useState(false);
 
+  const appBarHeight = 64; // Typically 64px for desktop AppBar
+
   async function retrieveData(dataPromise) {
     setIsDataResolved(false);
     let data = await dataPromise;
@@ -50,18 +51,14 @@ function Map({ locations, getLocationData }) {
     return (
       <>
         {locations.map((location) => (
-          <Marker position={[location.lat, location.lon]} key={[location.lat, location.lon]} icon={location.isUser ? greenMarker : defaultMarker} eventHandlers={{ click: () => { retrieveData(getLocationData(location)) } }}>
-            <Popup>
-              {!isDataResolved && <Loader size="large" variation="linear"/>}
-              {isDataResolved && <FWIVis FWIdata={locationData} />}
-            </Popup>
-          </Marker>
+          <Marker position={[location.lat, location.lon]} key={[location.lat, location.lon]} icon={location.isUser ? greenMarker : defaultMarker} eventHandlers={{ click: () => { retrieveData(getLocationData(location)) } }}/>
         ))}
+        {isDataResolved && <DataDashboard data={locationData} />}
       </>
     );
   }
   return (
-    <MapContainer center={[latitude, longitude]} zoom={13} ref={mapRef} style={{ height: "92vh", width: "100%", zIndex: 0 }}>
+    <MapContainer center={[latitude, longitude]} zoom={13} ref={mapRef} style={{ top: `${appBarHeight}px`, height: `calc(100vh - ${appBarHeight}px)`, width: "100%", zIndex: 0 }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

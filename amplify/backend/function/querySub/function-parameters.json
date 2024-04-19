@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "storage": {
+      "userSubLocations": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

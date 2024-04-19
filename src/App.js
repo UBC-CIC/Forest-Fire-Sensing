@@ -139,6 +139,73 @@ function App() {
     }
   }
 
+  async function addSubscription(params) {
+    try {
+      const authToken = await getUserToken();
+      const lat =  params['lat'];
+      const lon =  params['lat'];
+      const restOperation = put({
+        apiName: 'authapi',
+        path: `/sub/${getUsername()}/${lat}#${lon}`,
+        options: {
+          queryParams: {
+            lat: lat,
+            lon: lon,
+          },
+          headers:{Authorization: authToken}
+        }
+      });
+      const response = await restOperation.response;
+      const json = await response.body.json();
+      console.log('Device added successfully', json);
+    } catch (error) {
+      console.log('PUT call failed: ', error);
+    }
+  }
+
+  async function cancelSub(params) {
+    try {
+      const authToken = await getUserToken();
+      const username =  getUsername();
+      const createTime =  params['createTime'];
+      const restOperation = put({
+        apiName: 'authapi',
+        path: `/cancelSub/${username}/${createTime}`,
+        options: {
+          queryParams: {
+            username: username,
+            createTime: createTime,
+          },
+          headers:{Authorization: authToken}
+        }
+      });
+      const response = await restOperation.response;
+      const json = await response.body.json();
+      console.log('Device added successfully', json);
+    } catch (error) {
+      console.log('PUT call failed: ', error);
+    }
+  }
+
+  async function querySub() {
+    try {
+      const authToken = await getUserToken();
+      const username =  getUsername();
+      const restOperation = get({
+        apiName: 'authapi',
+        path: `/subs/${username}`,
+        options: {
+          headers:{Authorization: authToken}
+        }
+      });
+      const response = await restOperation.response;
+      const json = await response.body.json();
+      return json;
+    } catch (error) {
+      console.log('GET call failed: ', error);
+      return [];
+    }
+  }
 
   async function getAllLocationData() {
     var jsonLocations = await getLocations();
@@ -166,7 +233,7 @@ function App() {
     <div className="App">
       <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} getAllLocationData={getAllLocationData} menuIconAction={handleDrawer}/>
       <Drawer open={showDrawer} onClose={handleDrawer}>
-          {isLoggedIn() && <UserDevices submitAction={putLocation} />}
+          {isLoggedIn() && <UserDevices submitAction_2={putLocation} submitAction_3={addSubscription} submitAction_4={cancelSub} queryAction={querySub}/>}
         </Drawer>
       <Map
             key={'map'}

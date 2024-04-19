@@ -69,6 +69,14 @@
           ],
           "category": "function",
           "resourceName": "491putLocation"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "querySub"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -236,6 +244,22 @@
     },
     "notificationTrigger": {
       "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "querySub": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "userSubLocations"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -451,6 +475,22 @@
         {
           "category": "function",
           "resourceName": "notificationTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_querySub_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "querySub"
+        }
+      ]
+    },
+    "AMPLIFY_function_querySub_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "querySub"
         }
       ]
     },

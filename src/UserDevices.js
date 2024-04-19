@@ -1,7 +1,9 @@
 import AddDevice from "./AddDevice";
-import {Tabs} from '@aws-amplify/ui-react'
+import AddSubscription from "./AddSubscription";
+import CancelSub from "./cancelSub";
+import {Tabs} from '@aws-amplify/ui-react';
 
-function UserDevices({ submitAction, locations }) {
+function UserDevices({ submitAction_2, submitAction_3, submitAction_4, queryAction}) {
     return (
         <div>
             <Tabs
@@ -15,7 +17,21 @@ function UserDevices({ submitAction, locations }) {
                         label: "Add Device",
                         value: '2',
                         content: (
-                            <AddDevice submitAction={submitAction}/>
+                            <AddDevice submitAction={submitAction_2}/>
+                        )
+                    },
+                    {
+                        label: "Add Subscription",
+                        value: '3',
+                        content: (
+                            <AddSubscription submitAction={submitAction_3}/>
+                        )
+                    },
+                    {
+                        label: "Cancel Subscription",
+                        value: '4',
+                        content: (
+                            <CancelSub queryAction={queryAction} submitAction={submitAction_4}/>
                         )
                     }
                 ]}

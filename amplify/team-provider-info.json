@@ -165,6 +165,10 @@
         "deleteUserSub": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
           "s3Key": "amplify-builds/deleteUserSub-78764873677879537a51-build.zip"
+        },
+        "querySub": {
+          "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
+          "s3Key": "amplify-builds/querySub-35684d4a3136344d5437-build.zip"
         }
       },
       "api": {

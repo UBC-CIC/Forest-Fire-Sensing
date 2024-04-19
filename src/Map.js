@@ -41,7 +41,6 @@ function Map({ locations, getLocationData }) {
     setIsDataResolved(false);
     let data = await dataPromise;
     setLocationData(data);
-    console.log(data);
     setIsDataResolved(true);
   }
 

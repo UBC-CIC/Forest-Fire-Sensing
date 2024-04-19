@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Drawer } from '@mui/material';
 import FWIVis from './FWIVis';
 import GeneralVis from './GeneralVis';
+import Dataview from './DataView';
 
 function DataDashboard({ data }) {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -36,6 +37,7 @@ function DataDashboard({ data }) {
               sx={{ width: '100%' }} // Make the Box fill the Drawer width
               role="presentation"
             >
+                <Dataview data={data['sensor']}/>
                 <FWIVis FWIData={data['satellite']}/>
                 <GeneralVis data={data['sensor']} dataId={'temperature'} label={'Temperature'} unit={'°C'}/>
                 <GeneralVis data={data['sensor']} dataId={'humidity'} label={'Humidity'} unit={'%'}/>

@@ -1,15 +1,14 @@
-import { Button, Input } from '@aws-amplify/ui-react';
-import { useState } from 'react'
+import React, { useState } from 'react';
+import { Button, TextField } from '@mui/material';
 
-
-function AddSubscription({submitAction}) {
+function AddSubscription({ submitAction }) {
     const [lat, setLat] = useState('');
     const [lon, setLon] = useState('');
 
     const params = {
         lat: lat,
         lon: lon
-    }
+    };
 
     function formSubmitHandler(e) {
         e.preventDefault();
@@ -18,12 +17,28 @@ function AddSubscription({submitAction}) {
 
     return (
         <div>
-            <form onSubmit={(e)=> formSubmitHandler(e)}>
-            <Input type="number" step="any" placeholder='Longitude' onChange={(e) => setLat(e.currentTarget.value)} width="30%" isRequired/>
-            <br/>
-            <Input type="number" step="any" placeholder='Latitude' onChange={(e) => setLon(e.currentTarget.value)} width="30%" isRequired/>
-            <br/>
-            <Button type="submit">Subscribe</Button>
+            <form onSubmit={formSubmitHandler} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+                <TextField
+                    type="number"
+                    label="Latitude"
+                    variant="outlined"
+                    value={lat}
+                    onChange={(e) => setLat(e.target.value)}
+                    required
+                    style={{ width: '80%' }}
+                />
+                <TextField
+                    type="number"
+                    label="Longitude"
+                    variant="outlined"
+                    value={lon}
+                    onChange={(e) => setLon(e.target.value)}
+                    required
+                    style={{ width: '80%' }}
+                />
+                <Button type="submit" variant="contained" color="primary">
+                    Subscribe
+                </Button>
             </form>
         </div>
     );

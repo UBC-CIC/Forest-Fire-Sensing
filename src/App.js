@@ -9,10 +9,23 @@ import Map from './Map';
 import UserDevices from './UserDevices';
 import Header from './Header';
 import { Drawer } from '@mui/material'
+import SimpleDialog from './SimpleDialog';
 
 Amplify.configure(awsconfig);
 
 function App() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+
+  const openDialog = (message) => {
+    setDialogMessage(message);
+    setDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+  };
+
   const [locations, setLocations] = useState();
   const [showDrawer, setShowDrawer] = useState(false);
 
@@ -133,11 +146,10 @@ function App() {
           headers: { Authorization: authToken }
         }
       });
-      const response = await restOperation.response;
-      const json = await response.body.json();
-      console.log('Device added successfully', json);
+      await restOperation.response;
+      openDialog('Add device successfully');
     } catch (error) {
-      console.log('PUT call failed: ', error);
+      openDialog('Add device not success, please try again');
     }
   }
 
@@ -145,7 +157,7 @@ function App() {
     try {
       const authToken = await getUserToken();
       const lat = params['lat'];
-      const lon = params['lat'];
+      const lon = params['lon'];
       const restOperation = put({
         apiName: 'authapi',
         path: `/sub/${getUsername()}/${lat}#${lon}`,
@@ -157,11 +169,10 @@ function App() {
           headers: { Authorization: authToken }
         }
       });
-      const response = await restOperation.response;
-      const json = await response.body.json();
-      console.log('Device added successfully', json);
+      await restOperation.response;
+      openDialog('Subscribe successfully');
     } catch (error) {
-      console.log('PUT call failed: ', error);
+      openDialog('Substribe not success, please try again');
     }
   }
 
@@ -181,11 +192,10 @@ function App() {
           headers: { Authorization: authToken }
         }
       });
-      const response = await restOperation.response;
-      const json = await response.body.json();
-      console.log('Device added successfully', json);
+      await restOperation.response;
+      openDialog('Unsubscribe successfully');
     } catch (error) {
-      console.log('PUT call failed: ', error);
+      openDialog('Unsubstribe not success, please try again');
     }
   }
 
@@ -233,6 +243,7 @@ function App() {
 
   return (
     <div className="App">
+      <SimpleDialog open={dialogOpen} onClose={closeDialog} title="Action Status" message={dialogMessage} />
       <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} getAllLocationData={getAllLocationData} menuIconAction={handleDrawer} />
       <Drawer open={showDrawer} onClose={handleDrawer}
         sx={{

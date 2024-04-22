@@ -3,6 +3,9 @@ import { Box, Typography, Paper } from '@mui/material';
 
 function Dataview({ data }){
 
+  if(data.length === 0)
+    return;
+
   //get the latest data for sensor
   data = data[0];
   const temperature = data['temperature'].toFixed(1);

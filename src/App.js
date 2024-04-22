@@ -37,7 +37,9 @@ function App() {
   useEffect(() => {
     // Reset state when user signs out
     if (authStatus !== 'authenticated') {
-      setLocations(undefined);
+      getAllLocationData();
+    } else if (authStatus === 'authenticated'){
+      getAllLocationData();
     }
   }, [authStatus]);
 
@@ -244,7 +246,7 @@ function App() {
   return (
     <div className="App">
       <SimpleDialog open={dialogOpen} onClose={closeDialog} title="Action Status" message={dialogMessage} />
-      <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} getAllLocationData={getAllLocationData} menuIconAction={handleDrawer} />
+      <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} menuIconAction={handleDrawer} />
       <Drawer open={showDrawer} onClose={handleDrawer}
         sx={{
           '& .MuiDrawer-paper': {

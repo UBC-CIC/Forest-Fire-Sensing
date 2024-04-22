@@ -16,6 +16,9 @@ function GeneralVis({ data, dataId, label, unit }) {
         value: parseFloat(item[dataId].toFixed(1))
     }));
 
+    if(timeData.length === 0)
+        return;
+
     return (
         <LineChart
             width={300}

@@ -5,7 +5,7 @@ import { Button } from '@aws-amplify/ui-react';
 import Login from './Login';
 import logo from './icons/firewatch2.png'
 
-function Header({ username, authStatus, signOut, getAllLocationData, menuIconAction }) {
+function Header({ username, authStatus, signOut, menuIconAction }) {
     const [loginOverlay, setLoginOverlay] = useState(false);
     const [menuAnchor, setMenuAnchor] = useState(null);
 
@@ -61,7 +61,6 @@ function Header({ username, authStatus, signOut, getAllLocationData, menuIconAct
                                 open={Boolean(menuAnchor)}
                                 onClose={handleMenuClose}
                             >
-                                <MenuItem onClick={() => getAllLocationData()}>View Sensors</MenuItem>
                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                             </Menu>
                         </div>

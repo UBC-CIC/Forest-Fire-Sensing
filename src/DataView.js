@@ -14,6 +14,13 @@ function Dataview({ data }){
   const co2 = data['co_2'].toFixed(1);
   const voc = data['voc'].toFixed(1);
   const timestamp = data['timestamp'];
+  const isFire = data['isFire'];
+
+  const time = new Date(timestamp);
+
+  var pstDate = time.toLocaleString("en-US", {
+    timeZone: "America/Los_Angeles"
+});
 
   return (
     <Paper elevation={3} sx={{ p: 2, maxWidth: 300, margin: 'auto', mt: 3 }}>
@@ -21,12 +28,13 @@ function Dataview({ data }){
         Environment Status
       </Typography>
       <Box display="flex" flexDirection="column" gap={1}>
+        <Typography variant="body1">Fire Detected: {isFire ? 'Yes' : 'No'}</Typography>
         <Typography variant="body1">Temperature: {temperature}°C</Typography>
         <Typography variant="body1">Humidity: {humidity}%</Typography>
         <Typography variant="body1">Pressure: {pressure} hPa</Typography>
         <Typography variant="body1">CO2: {co2} ppm</Typography>
         <Typography variant="body1">VOC: {voc} ppb</Typography>
-        <Typography variant="body1">Updated At: {timestamp}</Typography>
+        <Typography variant="body1">Updated At: {pstDate}</Typography>
       </Box>
     </Paper>
   );

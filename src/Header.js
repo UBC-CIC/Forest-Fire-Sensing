@@ -32,26 +32,26 @@ function Header({ username, authStatus, signOut, menuIconAction }) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: '#333333' }}>
                 <Toolbar>
                     <IconButton
                         size='large'
                         edge='start'
-                        color='inherit'
+                        aria-label="menu"
                         onClick={menuIconAction}
+                        sx={{ color: 'white' }}  // Ensuring the menu button is white
                     >
                         <MenuIcon />
                     </IconButton>
-                    <img src={logo} alt="logo" style={{margin: 'auto', maxHeight: '64px', textAlign: 'center'}} />
-
-
+                    <img src={logo} alt="logo" style={{ margin: 'auto', maxHeight: '64px', textAlign: 'center' }} />
                     {authStatus && (
                         <div>
                             <IconButton
                                 size='large'
                                 edge='end'
-                                color='inherit'
+                                aria-label="user menu"
                                 onClick={handleUserMenu}
+                                sx={{ color: 'white' }}  // Ensuring the user icon button is white if necessary
                             >
                                 {username}
                             </IconButton>
@@ -65,17 +65,14 @@ function Header({ username, authStatus, signOut, menuIconAction }) {
                             </Menu>
                         </div>
                     )}
-
                     {!authStatus && (
-                        <Button onClick={signInButtonHandler}>Login</Button>
+                        <Button onClick={signInButtonHandler} style={{ color: 'white', backgroundColor: 'transparent', border: '1px solid white' }}>Login</Button>
                     )}
-
                 </Toolbar>
             </AppBar>
             {loginOverlay && <Login closeHandler={loginExitButtonHandler} />}
         </Box>
-
-    )
+    );
 }
 
 export default Header;

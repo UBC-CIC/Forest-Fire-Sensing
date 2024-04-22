@@ -1,5 +1,7 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "queryStringParameters":{
+    "sensorID": "2CF7F120502097D3",
+    "lat": "49.2635353",
+    "lon": "-123.2460856"
+  }
 }

@@ -15,6 +15,7 @@
     "aws-amplify": "^6.0.13",
     "aws-sdk": "^2.1510.0",
     "crypto-js": "^4.2.0",
+    "date-fns": "^3.6.0",
     "hash.js": "^1.1.7",
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",

@@ -114,7 +114,7 @@
       "function": {
         "491m2satellite": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491m2satellite-6a6d4e4a6e36676d5963-build.zip"
+          "s3Key": "amplify-builds/491m2satellite-794e6f66555561714f36-build.zip"
         },
         "491m2write": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
@@ -150,7 +150,7 @@
         },
         "storeSensorData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/storeSensorData-4432734d686978637143-build.zip"
+          "s3Key": "amplify-builds/storeSensorData-51512f2f534d4b584137-build.zip"
         },
         "notificationTrigger": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",

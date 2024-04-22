@@ -33,14 +33,16 @@ function Map({ locations, getLocationData }) {
   const longitude = -123.15;
 
   const [locationData, setLocationData] = useState();
+  const [locationInfo, setLocationInfo] = useState();
   const [isDataResolved, setIsDataResolved] = useState(false);
 
   const appBarHeight = 64; // Typically 64px for desktop AppBar
 
-  async function retrieveData(dataPromise) {
+  async function retrieveData(dataPromise, location) {
     setIsDataResolved(false);
     let data = await dataPromise;
     setLocationData(data);
+    setLocationInfo(location);
     setIsDataResolved(true);
   }
 
@@ -51,9 +53,9 @@ function Map({ locations, getLocationData }) {
     return (
       <>
         {locations.map((location) => (
-          <Marker position={[location.lat, location.lon]} key={[location.lat, location.lon]} icon={location.isUser ? greenMarker : defaultMarker} eventHandlers={{ click: () => { retrieveData(getLocationData(location)) } }}/>
+          <Marker position={[location.lat, location.lon]} key={[location.lat, location.lon]} icon={location.isUser ? greenMarker : defaultMarker} eventHandlers={{ click: () => { retrieveData(getLocationData(location), location) } }}/>
         ))}
-        {isDataResolved && <DataDashboard data={locationData} />}
+        {isDataResolved && <DataDashboard data={locationData} locationInfo={locationInfo} />}
       </>
     );
   }

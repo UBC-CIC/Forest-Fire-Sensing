@@ -10,6 +10,8 @@ import UserDevices from './UserDevices';
 import Header from './Header';
 import { Drawer } from '@mui/material'
 import SimpleDialog from './SimpleDialog';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme'; // Import the theme
 
 Amplify.configure(awsconfig);
 
@@ -65,7 +67,8 @@ function App() {
         lat: item.lat.N,
         lon: item.lon.N,
         sensorID: item.sensorID.S,
-        isUser: userSensors
+        isUser: userSensors,
+        locationName: item.locationName.S
       }
 
       result.push(location);
@@ -244,24 +247,26 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <SimpleDialog open={dialogOpen} onClose={closeDialog} title="Action Status" message={dialogMessage} />
-      <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} menuIconAction={handleDrawer} />
-      <Drawer open={showDrawer} onClose={handleDrawer}
-        sx={{
-          '& .MuiDrawer-paper': {
-            top: `${appBarHeight}px`, // Start below the AppBar
-            height: `calc(100% - ${appBarHeight}px)`, // Adjust height to fit below AppBar
-          }
-        }}>
-        {isLoggedIn() && <UserDevices submitAction_2={putLocation} submitAction_3={addSubscription} submitAction_4={cancelSub} queryAction={querySub} />}
-      </Drawer>
-      <Map
-        key={'map'}
-        locations={locations}
-        getLocationData={getLocationData}
-      />
-    </div>
+    <ThemeProvider theme={theme}> {/* Wrap the app content with ThemeProvider */}
+      <div className="App">
+        <SimpleDialog open={dialogOpen} onClose={closeDialog} title="Action Status" message={dialogMessage} />
+        <Header username={getUsername()} authStatus={isLoggedIn()} signOut={signOut} menuIconAction={handleDrawer} />
+        <Drawer open={showDrawer} onClose={handleDrawer}
+          sx={{
+            '& .MuiDrawer-paper': {
+              top: `${appBarHeight}px`,
+              height: `calc(100% - ${appBarHeight}px)`,
+            }
+          }}>
+          {isLoggedIn() && <UserDevices submitAction_2={putLocation} submitAction_3={addSubscription} submitAction_4={cancelSub} queryAction={querySub} />}
+        </Drawer>
+        <Map
+          key={'map'}
+          locations={locations}
+          getLocationData={getLocationData}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 

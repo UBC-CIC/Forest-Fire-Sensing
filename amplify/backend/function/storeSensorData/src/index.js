@@ -46,10 +46,14 @@ exports.handler = async (event) => {
     var co_2ToSend = (message['co_2'] > message['co_2_2']) ? message['co_2'] : message['co_2_2'];
     var pressureToSend = (message['pressure'] > message['pressure_2']) ? message['pressure'] : message['pressure_2'];
     
+    //Set to correct units
+    var pressureToSend = pressureToSend/100;
+    var vocToSend = vocToSend * 1000;
+    
     // Invoke lambda function to predict if there's a fire based on sensor values
     var result = await lambda.invoke({
         FunctionName: 'FireDetectionModelStack-fireDetectionModelE3DD7B9A-RIrWxa7LYXiO',
-        Payload: JSON.stringify([tempToSend, humidityToSend, vocToSend, co_2ToSend, pressureToSend])
+        Payload: JSON.stringify([humidityToSend, tempToSend, vocToSend, co_2ToSend, pressureToSend])
     }).promise();
     
     var fireResult = JSON.parse(result['Payload']);

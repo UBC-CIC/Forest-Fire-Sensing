@@ -382,6 +382,14 @@
         }
       ]
     },
+    "AMPLIFY_function_addUserSub_snsTopicArn": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserSub"
+        }
+      ]
+    },
     "AMPLIFY_function_deleteSensorData_deploymentBucketName": {
       "usedBy": [
         {

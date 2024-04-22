@@ -27,6 +27,11 @@ function isWithinRegion(regionLat, regionLon, userLat, userLon){
 exports.handler = async (event) => {
     console.log(`EVENT: ${JSON.stringify(event)}`);
 
+    var currentDate = new Date();
+    var pstDate = currentDate.toLocaleString("en-US", {
+        timeZone: "America/Los_Angeles"
+    });
+
     var sensorID = event['queryStringParameters']['sensorID'];
 
     const params = {
@@ -61,6 +66,7 @@ exports.handler = async (event) => {
         var deviceLon = deviceData.Items[0].lon.N;
         var isPublic = deviceData.Items[0].publicLocation.BOOL;
         var deviceOwner = deviceData.Items[0].user.S;
+        var deviceName = deviceData.Items[0].locationName.S;
 
         var userEmails = [];
         var userNumbers = [];
@@ -83,29 +89,9 @@ exports.handler = async (event) => {
             }
         }
 
-        // Subscribe email and phone number to topic
-        // Proof of concept; should be done before when user adds notification (should also be way to check if user is already verified)
-        /*for(var i = 0; i < userEmails.length; i++){
-            var smsParams = {
-                Protocol: 'sms',
-                TopicArn: process.env.SNS_TOPIC_ARN,
-                Endpoint: userNumbers[i]
-            }
-            var emailParams = {
-                Protocol: 'email',
-                TopicArn: process.env.SNS_TOPIC_ARN,
-                Endpoint: userEmails[i]
-            }
-
-            var responseSMS = await SNS.subscribe(smsParams).promise();
-            var responseEmail = await SNS.subscribe(emailParams).promise();
-            console.log(responseSMS);
-            console.log(responseEmail);
-        }*/
-
         // Send SMS notifications to users
         const response = await SNS.publish({
-            Message: 'There\'s a fire! TODO: insert location',
+            Message: `Fire detected at device ${deviceName}. Location: (${deviceLat}, ${deviceLon}). Detected at ${pstDate}. Please refer to website for more information.`,
             TargetArn: process.env.SNS_TOPIC_ARN,
             MessageAttributes: {
                 sms: {

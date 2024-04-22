@@ -14,14 +14,19 @@ Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 const dynamoDB = new AWS.DynamoDB();
+const SNS = new AWS.SNS();
 
 exports.handler = async (event) => {
 
   console.log(`EVENT: ${JSON.stringify(event)}`);
   let name = "";
+  let phone_number = "";
+  let email = "";
   if (event.requestContext.authorizer) {
       console.log(`CLAIMS: `, event.requestContext.authorizer.claims);
       name = event.requestContext.authorizer.claims["cognito:username"];
+      phone_number = event.requestContext.authorizer.claims["phone_number"];
+      email = event.requestContext.authorizer.claims["email"];
   }
 
   let headers = {
@@ -53,6 +58,17 @@ exports.handler = async (event) => {
     Item: item
   }
 
+  const smsParams = {
+    Protocol: 'sms',
+    TopicArn: process.env.SNS_TOPIC_ARN,
+    Endpoint: phone_number
+  }
+  const emailParams = {
+    Protocol: 'email',
+    TopicArn: process.env.SNS_TOPIC_ARN,
+    Endpoint: email
+  }
+
   const errorReturnVal = (errMsg) => {return {
     statusCode: 500,
     headers: {
@@ -63,6 +79,13 @@ exports.handler = async (event) => {
   };}
 
   try {
+    // Subscribe email and phone number to topic
+    var responseSMS = await SNS.subscribe(smsParams).promise();
+    var responseEmail = await SNS.subscribe(emailParams).promise();
+
+    console.log(responseSMS);
+    console.log(responseEmail);
+
     const response = await dynamoDB.putItem(params).promise();
 
     return {

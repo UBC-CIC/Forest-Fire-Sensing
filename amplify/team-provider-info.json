@@ -154,13 +154,14 @@
         },
         "notificationTrigger": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/notificationTrigger-7464684b326870597443-build.zip",
+          "s3Key": "amplify-builds/notificationTrigger-32632b556d4436503835-build.zip",
           "cognitoUserPoolId": "ca-central-1_Rjv5YlAGS",
           "snsTopicArn": "arn:aws:sns:ca-central-1:992604132616:FireAlert"
         },
         "addUserSub": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/addUserSub-736e7749364d476a7065-build.zip"
+          "s3Key": "amplify-builds/addUserSub-57586c676e3942665344-build.zip",
+          "snsTopicArn": "arn:aws:sns:ca-central-1:992604132616:FireAlert"
         },
         "deleteUserSub": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",

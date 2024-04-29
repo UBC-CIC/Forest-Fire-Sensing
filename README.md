@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Remote Sensing Forest Fires
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+| Index                                               | Description                                             |
+| :-------------------------------------------------- | :------------------------------------------------------ |
+| [High Level Architecture](#High-Level-Architecture) | High level overview illustrating component interactions |
+| [Deployment](#Deployment-Guide)                     | How to deploy the project                               |
+| [User Guide](#User-Guide)                           | The working solution                                    |
+| [Files/Directories](#Files-And-Directories)         | Important files/directories in the project              |
+| [Changelog](#Changelog)                             | Any changes post publish                                |
+| [Credits](#Credits)                                 | Meet the team behind the solution                       |
+| [License](#License)                                 | License details                                         |
 
-## Available Scripts
+# High Level Architecture
 
-In the project directory, you can run:
+The following architecture diagram displays the AWS backend components and how they are connected. 
 
-### `npm start`
+![Alt text](./docs/images/architecture.png "Architecture")
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Deployment Guide
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To deploy this solution, please follow the steps laid out in the [Deployment Guide](<docs/Deployment guide.pdf>)
 
-### `npm test`
+# User Guide
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For instructions on how to navigate the web app interface, refer to the [User Guide](<docs/User guide.pdf>).
 
-### `npm run build`
+# Files And Directories
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```text
+.
+├── README.md
+├── amplify
+│   ├── backend
+│   │   └── resources
+├── backend_cdk
+│   └── fireDetectionModel
+├── package-lock.json
+├── package.json
+├── public
+├── src
+│   ├── AddDevice.js
+│   ├── AddSubscription.js
+│   ├── App.css
+│   ├── App.js
+│   ├── App.test.js
+│   ├── DataDashboard.js
+│   ├── DataView.js
+│   ├── FWIVis.js
+│   ├── GeneralVis.js
+│   ├── Header.js
+│   ├── Login.css
+│   ├── Login.js
+│   ├── Map.js
+│   ├── SimpleDialog.js
+│   ├── UserDevices.js
+│   ├── cancelSub.js
+│   ├── icons
+│   │   ├── firewatch2.png
+│   │   └── green-marker.png
+│   ├── index.css
+│   ├── index.js
+│   ├── logo.svg
+│   ├── proto
+│   │   └── message.proto
+│   ├── reportWebVitals.js
+│   ├── setupTests.js
+│   └── theme.js
+└── yarn.lock
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Changelog
+N/A
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Credits
 
-### `npm run eject`
+This application was architected and developed by Mark Lee, Austin Li, Ethan McKeen, Gurjot Sandhu, Christy Zhang with guidance from the UBC CIC technical and project management teams.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# License
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is distributed under the [MIT License](LICENSE).

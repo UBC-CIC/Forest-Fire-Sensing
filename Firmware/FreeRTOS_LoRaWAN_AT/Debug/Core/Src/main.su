@@ -1,0 +1,16 @@
+../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_rcc.h:1258:22:LL_RCC_LSE_SetDriveCapability	16	static
+../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_bus.h:449:22:LL_AHB2_GRP1_EnableClock	24	static
+../Core/Src/main.c:118:5:main	72	static
+../Core/Src/main.c:181:6:SystemClock_Config	112	static
+../Core/Src/main.c:229:13:MX_LPTIM1_Init	8	static
+../Core/Src/main.c:263:6:MX_GPIO_Init	32	static
+../Core/Src/main.c:290:6:StartLoRaWANTask	16	static
+../Core/Src/main.c:315:7:concatPrefix	24	static
+../Core/Src/main.c:334:7:arrayToString	24	static
+../Core/Src/main.c:348:30:bme68x_bsec_update_subscription	208	static
+../Core/Src/main.c:427:30:bme68x_bsec_process_data	512	static
+../Core/Src/main.c:558:9:processData	152	static
+../Core/Src/main.c:629:6:output_ready	184	static
+../Core/Src/main.c:653:6:allocateMemory	16	static
+../Core/Src/main.c:661:6:StartMonitorTask	728	static
+../Core/Src/main.c:903:6:Error_Handler	4	static,ignoring_inline_asm

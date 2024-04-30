@@ -1,0 +1,16 @@
+../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_rcc.h:1258:22:LL_RCC_LSE_SetDriveCapability	1
+../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_bus.h:449:22:LL_AHB2_GRP1_EnableClock	1
+../Core/Src/main.c:118:5:main	1
+../Core/Src/main.c:181:6:SystemClock_Config	3
+../Core/Src/main.c:229:13:MX_LPTIM1_Init	2
+../Core/Src/main.c:263:6:MX_GPIO_Init	1
+../Core/Src/main.c:290:6:StartLoRaWANTask	1
+../Core/Src/main.c:315:7:concatPrefix	2
+../Core/Src/main.c:334:7:arrayToString	2
+../Core/Src/main.c:348:30:bme68x_bsec_update_subscription	1
+../Core/Src/main.c:427:30:bme68x_bsec_process_data	25
+../Core/Src/main.c:558:9:processData	11
+../Core/Src/main.c:629:6:output_ready	5
+../Core/Src/main.c:653:6:allocateMemory	1
+../Core/Src/main.c:661:6:StartMonitorTask	28
+../Core/Src/main.c:903:6:Error_Handler	1

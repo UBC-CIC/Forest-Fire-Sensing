@@ -75,7 +75,7 @@ N/A
 
 # Credits
 
-This application was architected and developed by Mark Lee, Austin Li, Ethan McKeen, Gurjot Sandhu, Christy Zhang with guidance from the UBC CIC technical and project management teams.
+This application was architected and developed by Mark Lee, Austin Li, Ethan McKeen, Gurjot Sandhu, and Christy Zhang with guidance from the UBC CIC technical and project management teams.
 
 # License
 

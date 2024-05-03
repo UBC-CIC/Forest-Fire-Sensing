@@ -20,11 +20,11 @@ The following architecture diagram displays the AWS backend components and how t
 
 # Deployment Guide
 
-To deploy this solution, please follow the steps laid out in the [Deployment Guide](<docs/Deployment guide.pdf>)
+To deploy this solution, please follow the steps laid out in the [Deployment Guide](<docs/DeploymentGuide.md>)
 
 # User Guide
 
-For instructions on how to navigate the web app interface, refer to the [User Guide](<docs/User guide.pdf>).
+For instructions on how to navigate the web app interface, refer to the [User Guide](<docs/UserGuide.md>).
 
 # Files And Directories
 

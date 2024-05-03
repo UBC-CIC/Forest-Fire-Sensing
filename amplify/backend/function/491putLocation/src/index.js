@@ -17,7 +17,7 @@ Amplify Params - DO NOT EDIT *//**
 const AWS = require('aws-sdk');
 const dynamoDB = new AWS.DynamoDB();
 const _ = require('lodash')
-const lambda = new AWS.Lambda({region: 'ca-central-1'});
+const lambda = new AWS.Lambda({region: process.env.AWS_REGION});
 
 
 exports.handler = async (event) => {

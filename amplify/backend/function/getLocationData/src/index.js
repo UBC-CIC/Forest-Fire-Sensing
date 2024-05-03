@@ -1,6 +1,6 @@
 
 const AWS = require('aws-sdk');
-AWS.config.update({region: 'ca-central-1'});
+AWS.config.update({region: process.env.AWS_REGION});
 
 // Create the DynamoDB service object
 const ddb = new AWS.DynamoDB.DocumentClient();

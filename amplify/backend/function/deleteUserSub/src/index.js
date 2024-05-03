@@ -11,7 +11,7 @@ Amplify Params - DO NOT EDIT */
  */
 
 const AWS = require('aws-sdk');
-AWS.config.update({region: 'ca-central-1'});
+AWS.config.update({region: process.env.AWS_REGION});
 const ddb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {

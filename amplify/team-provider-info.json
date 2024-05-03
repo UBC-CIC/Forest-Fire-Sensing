@@ -114,7 +114,7 @@
       "function": {
         "491m2satellite": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491m2satellite-794e6f66555561714f36-build.zip"
+          "s3Key": "amplify-builds/491m2satellite-783666626d4d514a6269-build.zip"
         },
         "491m2write": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
@@ -130,7 +130,7 @@
         },
         "491satelliteAll": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491satelliteAll-41574d354e4e61587141-build.zip"
+          "s3Key": "amplify-builds/491satelliteAll-6a376d7857617447347a-build.zip"
         },
         "getUserSensors": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
@@ -142,7 +142,7 @@
         },
         "491putLocation": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/491putLocation-6e6d665335677156422b-build.zip"
+          "s3Key": "amplify-builds/491putLocation-33684b776f6f79723131-build.zip"
         },
         "deleteSensorData": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
@@ -154,7 +154,7 @@
         },
         "notificationTrigger": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/notificationTrigger-32632b556d4436503835-build.zip",
+          "s3Key": "amplify-builds/notificationTrigger-3468534c5530374a6255-build.zip",
           "cognitoUserPoolId": "ca-central-1_Rjv5YlAGS",
           "snsTopicArn": "arn:aws:sns:ca-central-1:992604132616:FireAlert"
         },
@@ -165,7 +165,7 @@
         },
         "deleteUserSub": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",
-          "s3Key": "amplify-builds/deleteUserSub-78764873677879537a51-build.zip"
+          "s3Key": "amplify-builds/deleteUserSub-444c63484852464b5753-build.zip"
         },
         "querySub": {
           "deploymentBucketName": "amplify-491m2prototype-ampdev-230955-deployment",

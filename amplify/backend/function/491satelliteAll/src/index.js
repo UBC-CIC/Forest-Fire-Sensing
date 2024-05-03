@@ -4,7 +4,7 @@
 
 const _ = require('lodash');
 const AWS = require('aws-sdk');
-const lambda = new AWS.Lambda({region: 'ca-central-1'});
+const lambda = new AWS.Lambda({region: process.env.AWS_REGION});
 
 exports.handler = async (event) => {
     const params = {

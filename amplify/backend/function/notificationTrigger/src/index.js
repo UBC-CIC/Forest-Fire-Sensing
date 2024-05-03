@@ -7,11 +7,11 @@ const dynamoDB = new AWS.DynamoDB();
 const SNS = new AWS.SNS();
 const cognito = new AWS.CognitoIdentityServiceProvider({ 
     apiVersion: '2016-04-18', 
-    region: 'ca-central-1'
+    region: process.env.AWS_REGION
 });
 
 AWS.config.update({
-    region: 'ca-central-1'
+    region: process.env.AWS_REGION
 })
 
 function isWithinRegion(regionLat, regionLon, userLat, userLon){

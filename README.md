@@ -1,6 +1,6 @@
 # Remote Sensing Forest Fires
 
-FireWatch is a wildfire prediction and detection system designed to address the threat of wildfires in British Columbia and Canada. This solution involves a deployable prototype that utilizes IoT sensors to collect near real-time data in remote forests and satellite data that monitor wildfires. These data will be displayed on the web application to users and send notifications of high risk areas.
+FireWatch is an ECE capstone project dedicated to developing a wildfire prediction and detection system designed to address the threat of wildfires in British Columbia and Canada. This solution involves a deployable prototype that utilizes IoT sensors to collect near real-time data in remote forests and satellite data that monitor wildfires. These data will be displayed on the web application to users and send notifications of high risk areas.
 
 | Index                                               | Description                                             |
 | :-------------------------------------------------- | :------------------------------------------------------ |
